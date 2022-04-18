@@ -22,14 +22,13 @@ export class Note {
 
   accidental: null | Accidental = null
 
-  /// Returns the note in given scale.
-  /// The scale is represented as semitons starting at C4 (or c'). So a scale value of
-  /// 2 means D1.
-  getNote = (scale: number): string => {
+  /// Returns the note in given scale. The scale is represented as semitons
+  /// starting at C4 (or c'). So a scale value of 2 means D1.
+  getNote = (scale: number, { withOctave = true } = {}): string => {
     const scaleInterval = this.interval + scale
     const note = _notes[(scaleInterval + 12 * 5) % 12]
     const octave = Math.floor(scaleInterval / 12)
-    return `${note}${octave + 4}`
+    return `${note}${withOctave ? octave + 4 : ''}`
   }
 
   /// The interval from the tonic in semitones.

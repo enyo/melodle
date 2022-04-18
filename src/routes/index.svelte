@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { Exercise } from '$lib/exercise'
+  import Guess from '$lib/Guess.svelte'
+
+  import { Melody } from '$lib/melody'
   import { Note } from '$lib/note'
 
   import { onMount } from 'svelte'
@@ -8,10 +10,9 @@
 
   let synth: Tone.Synth | undefined
 
-  let exerciseString = '1 3 5 8 5 3 1'
+  let melodyString = '1 3 5 8 5'
   let scale = 0
-  $: scaleNote = new Note('1').getNote(scale)
-  let preview = false
+  const tempo = 100
 
   onMount(() => {
     return () => synth?.dispose()
@@ -23,56 +24,41 @@
     const now = Tone.now()
     const time = Tone.Time('8n').toSeconds()
 
-    Tone.Transport.bpm.setValueAtTime(120, now)
+    Tone.Transport.bpm.setValueAtTime(tempo, now)
 
-    const exercise = new Exercise('Triad', exerciseString)
+    const melody = new Melody(melodyString)
 
-    if (preview) {
-      synth.triggerAttackRelease(exercise.notes[0].getNote(scale), '8n', now)
-    }
-    exercise.notes.forEach((note, i) => {
-      synth.triggerAttackRelease(
-        note.getNote(scale),
-        '8n',
-        now + time * (i + (preview ? 2 : 0)),
-      )
+    melody.notes.forEach((note, i) => {
+      synth.triggerAttackRelease(note.getNote(scale), '8n', now + time * i)
     })
   }
 
-  const exercises = {
-    fifth: '1 5',
-    triad: '1 3 5 3 1',
-    birdy: '1 5 3 8 5 3 1',
-    gamme: '1 3 5 8 5 3 1',
-    gu: '8 5 3 1 3 5 8 5 3 1',
+  type MelodyGuess = {
+    melody: string
+    submitted: boolean
   }
+
+  const guesses: MelodyGuess[] = [
+    { melody: '1 2 3 4 5', submitted: true },
+    { melody: '2 3 4 5 6', submitted: false },
+    { melody: '1 1 3 3 5', submitted: false },
+  ]
 </script>
 
-Scale: {scaleNote}
-<button on:click={() => (scale = scale + 1)}>+</button>
-<button on:click={() => (scale = scale - 1)}>-</button>
-Preview: <input type="checkbox" bind:checked={preview} />
-<br />
-
-<input type="text" bind:value={exerciseString} />
 <button on:click={play}>Play</button>
-<button
-  on:click={() => {
-    scale = scale - 1
-    play()
-  }}>Previous</button
->
 
-<button
-  on:click={() => {
-    scale = scale + 1
-    play()
-  }}>Next</button
->
-
-<br />
-
-{#each Object.keys(exercises) as name}
-  <button on:click={() => (exerciseString = exercises[name])}>{name}</button>
+{#each Array(6) as _, i}
+  {@const guess = guesses[i]}
+  <Guess
+    correctMelody={melodyString}
+    guessedMelody={guess?.melody}
+    submitted={guess?.submitted ?? false}
+  />
 {/each}
-<!-- <a on:click|preventDefault={}></a> -->
+
+<style>
+  button {
+    font-size: 2rem;
+    padding: 0.5em 1.5em;
+  }
+</style>
