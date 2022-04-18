@@ -3,11 +3,11 @@
 </script>
 
 <script lang="ts">
-  import { Note } from './note'
-  export let note: string | undefined
+  import type { Note } from './note'
+  export let note: Note | undefined
   export let status: Status = undefined
 
-  $: displayNote = note ? new Note(note).getNote(0, { withOctave: false }) : ''
+  $: displayNote = note ? note.notationWithoutOctave : ''
 </script>
 
 <div class={status}>{displayNote}</div>
