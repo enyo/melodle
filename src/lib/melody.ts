@@ -28,7 +28,7 @@ export class Melody {
 
   guess = (guess: Melody, { submitted = false } = {}): GuessedNote[] => {
     const notes = []
-    const remainingMelodyNotes = [...this.semitones]
+    const remainingMelodyNotes = this.semitones.map((semitone) => semitone % 12)
 
     for (let i = 0; i < 5; i++) {
       const note = guess.notes[i]
@@ -38,14 +38,17 @@ export class Melody {
         continue
       }
 
+      /// We don't care in which octave it is
+      const noteSemitone = note.semitone % 12
+
       let status: Status
       if (submitted) {
-        if (remainingMelodyNotes[i] == note.semitone) {
+        if (remainingMelodyNotes[i] === noteSemitone) {
           status = 'correct'
           remainingMelodyNotes[i] = undefined
-        } else if (remainingMelodyNotes.includes(note.semitone)) {
+        } else if (remainingMelodyNotes.includes(noteSemitone)) {
           status = 'wrong-position'
-          remainingMelodyNotes[remainingMelodyNotes.indexOf(note.semitone)] =
+          remainingMelodyNotes[remainingMelodyNotes.indexOf(noteSemitone)] =
             undefined
         } else {
           status = 'incorrect'
@@ -81,9 +84,9 @@ if (import.meta.vitest) {
     expect(new Melody('1 3 5 3 1').semitones).toMatchObject([1, 3, 5, 3, 1])
   })
   it('can evaluate guesses', () => {
-    const correct = new Melody('48 50 55 60 48')
+    const correct = new Melody('48 50 55 59 48')
 
-    let guess = correct.guess(new Melody('48 50 55 60 48'))
+    let guess = correct.guess(new Melody('48 50 55 59 48'), { submitted: true })
     expect(guess).toHaveLength(5)
     expect(guess[0].status).toBe('correct')
     expect(guess[1].status).toBe('correct')
@@ -91,7 +94,7 @@ if (import.meta.vitest) {
     expect(guess[3].status).toBe('correct')
     expect(guess[4].status).toBe('correct')
 
-    guess = correct.guess(new Melody('49 51 56 61 49'))
+    guess = correct.guess(new Melody('49 51 56 61 49'), { submitted: true })
     expect(guess).toHaveLength(5)
     expect(guess[0].status).toBe('incorrect')
     expect(guess[1].status).toBe('incorrect')
@@ -99,12 +102,36 @@ if (import.meta.vitest) {
     expect(guess[3].status).toBe('incorrect')
     expect(guess[4].status).toBe('incorrect')
 
-    guess = correct.guess(new Melody('48 48 48 51 60'))
+    guess = correct.guess(new Melody('48 48 48 51 59'), { submitted: true })
     expect(guess).toHaveLength(5)
     expect(guess[0].status).toBe('correct')
     expect(guess[1].status).toBe('wrong-position')
     expect(guess[2].status).toBe('incorrect')
     expect(guess[3].status).toBe('incorrect')
     expect(guess[4].status).toBe('wrong-position')
+  })
+  it('evaluates guesses independent of octaves', () => {
+    const correct = new Melody('0 12 0 12 0')
+    const guess = correct.guess(new Melody('0 12 24 36 48'), {
+      submitted: true,
+    })
+    expect(guess).toHaveLength(5)
+    expect(guess[0].status).toBe('correct')
+    expect(guess[1].status).toBe('correct')
+    expect(guess[2].status).toBe('correct')
+    expect(guess[3].status).toBe('correct')
+    expect(guess[4].status).toBe('correct')
+  })
+  it('doesnt include status if guess hasnt been submitted', () => {
+    const correct = new Melody('0 12 0 12 0')
+    const guess = correct.guess(new Melody('0 12 24 36 48'), {
+      submitted: false,
+    })
+    expect(guess).toHaveLength(5)
+    expect(guess[0].status).toBeUndefined()
+    expect(guess[1].status).toBeUndefined()
+    expect(guess[2].status).toBeUndefined()
+    expect(guess[3].status).toBeUndefined()
+    expect(guess[4].status).toBeUndefined()
   })
 }

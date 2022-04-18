@@ -18,11 +18,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1em;
-    height: 1em;
+    width: 2em;
+    height: 2em;
     border: 1px solid gray;
     margin: 0.1em;
-    padding: 0.5em;
+    padding: 1em;
     font-weight: bold;
   }
   .wrong-position {
