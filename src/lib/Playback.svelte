@@ -35,8 +35,8 @@
   }
 </script>
 
-<button on:click={playReference}>Reference C</button>
-<button on:click={play}>Play</button>
+<button on:click={playReference}>C'</button>
+<button on:click={play}>Play melody</button>
 
 <style>
   button {

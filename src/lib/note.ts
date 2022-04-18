@@ -11,7 +11,7 @@ export class Note {
   get notationWithoutOctave(): string {
     return _notes[this.semitone % 12]
   }
-  constructor(readonly semitone: number) {}
+  constructor(public semitone: number) {}
 
   toString = (): string => this.notation
 }

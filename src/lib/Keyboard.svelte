@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, onMount } from 'svelte'
 
   const dispatch = createEventDispatcher<{
     add: number
+    sharp: void
+    flat: void
     delete: void
     submit: void
   }>()
@@ -21,6 +23,28 @@
     { semitone: 58, name: 'A#' },
     { semitone: 59, name: 'B' },
   ]
+
+  onMount(() => {
+    const validKeys = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11, h: 11 }
+    const keyListener = (event) => {
+      if (event.key === 'Backspace') {
+        dispatch('delete')
+      } else if (event.key === 'Enter') {
+        dispatch('submit')
+      } else if (validKeys[event.key] !== undefined) {
+        dispatch('add', validKeys[event.key])
+      } else if (event.key == 'ArrowUp') {
+        dispatch('sharp')
+      } else if (event.key == 'ArrowDown') {
+        dispatch('flat')
+      } else {
+        return
+      }
+      event.preventDefault()
+    }
+    document.addEventListener('keydown', keyListener)
+    return () => document.removeEventListener('keydown', keyListener)
+  })
 </script>
 
 <button on:click={() => dispatch('delete')}>Delete</button>
@@ -43,6 +67,7 @@
     /* height: 200px; */
     width: 100%;
     max-width: 40rem;
+    min-width: 30rem;
     aspect-ratio: 3;
     display: grid;
     grid-template-rows: 2fr 1fr;

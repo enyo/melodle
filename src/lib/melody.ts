@@ -26,6 +26,20 @@ export class Melody {
     return this.notes.map((note) => note.semitone)
   }
 
+  isCorrect = (guess: Melody): boolean => {
+    if (guess.notes.length != 5) return false
+
+    for (let i = 0; i < 5; i++) {
+      if (
+        guess.notes[i].notationWithoutOctave !==
+        this.notes[i].notationWithoutOctave
+      ) {
+        return false
+      }
+    }
+    return true
+  }
+
   guess = (guess: Melody, { submitted = false } = {}): GuessedNote[] => {
     const notes = []
     const remainingMelodyNotes = this.semitones.map((semitone) => semitone % 12)
