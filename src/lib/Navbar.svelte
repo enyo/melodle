@@ -3,17 +3,23 @@
   import StatsIcon from '~icons/ion/stats-bars'
   import Modal from './Modal.svelte'
 
-  let showHelp = false
+  let showHelp =
+    typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
+
+  const closeHelp = () => {
+    showHelp = false
+    localStorage.setItem('showedHelp', 'true')
+  }
 </script>
 
 <nav>
-  <a href="#" on:click|preventDefault={() => (showHelp = true)}><HelpIcon /></a>
+  <a href="/" on:click|preventDefault={() => (showHelp = true)}><HelpIcon /></a>
   <strong>Melodle</strong>
   <StatsIcon />
 </nav>
 
 {#if showHelp}
-  <Modal on:close={() => (showHelp = false)}>
+  <Modal on:close={closeHelp}>
     <h1>Rules</h1>
 
     <p>Guess the melody in 6 tries.</p>
