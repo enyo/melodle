@@ -1,6 +1,7 @@
 <script lang="ts">
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
+  import Navbar from './Navbar.svelte'
   import Playback from './Playback.svelte'
   import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores'
@@ -11,6 +12,8 @@
 {/if}
 
 <div class="board">
+  <Navbar />
+
   <div class="playback">
     <Playback melody={$board.melody} />
   </div>
@@ -19,15 +22,13 @@
     <Guesses />
   </div>
 
-  <div class="keyboard">
-    <Keyboard
-      on:add={(e) => board.addGuessNote(e.detail)}
-      on:delete={board.deleteGuess}
-      on:submit={board.submit}
-      on:sharp={board.sharp}
-      on:flat={board.flat}
-    />
-  </div>
+  <Keyboard
+    on:add={(e) => board.addGuessNote(e.detail)}
+    on:delete={board.deleteGuess}
+    on:submit={board.submit}
+    on:sharp={board.sharp}
+    on:flat={board.flat}
+  />
 </div>
 
 <style>
@@ -37,7 +38,7 @@
     min-height: 80vh;
     padding: 24px;
     gap: 24px;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
     justify-items: center;
   }
   .guesses {

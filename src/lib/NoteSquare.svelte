@@ -12,7 +12,7 @@
 
 <div class={status}>{displayNote}</div>
 
-<style>
+<style lang="postcss">
   div {
     font-size: 2rem;
     width: 100%;
@@ -23,16 +23,20 @@
     margin: 0;
     font-weight: bold;
   }
-  .wrong-position {
-    background: #c4b466;
+  .wrong-position,
+  .correct,
+  .incorrect {
+    background: var(--color);
+    border-color: var(--color);
     color: white;
+  }
+  .wrong-position {
+    --color: #c4b466;
   }
   .correct {
-    background: #76a567;
-    color: white;
+    --color: #76a567;
   }
   .incorrect {
-    background: #888888;
-    color: white;
+    --color: #888888;
   }
 </style>

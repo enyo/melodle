@@ -1,5 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte'
+  import DeleteIcon from '~icons/ion/backspace-outline'
+  import SubmitIcon from '~icons/ion/checkmark-circle-outline'
 
   const dispatch = createEventDispatcher<{
     add: number
@@ -47,35 +49,57 @@
   })
 </script>
 
-<div class="actions">
-  <button on:click={() => dispatch('delete')}>Delete</button>
-  <button on:click={() => dispatch('submit')}>Submit</button>
+<div class="container">
+  <div class="actions">
+    <button class="delete" on:click={() => dispatch('delete')}
+      ><DeleteIcon /></button
+    >
+    <button class="submit" on:click={() => dispatch('submit')}
+      ><SubmitIcon /></button
+    >
+  </div>
+  <nav class="keyboard">
+    {#each notes as note}
+      <button
+        on:click={() => dispatch('add', note.semitone)}
+        class={note.name.toLowerCase().replace('#', 'sharp')}
+        class:sharp={note.name.includes('#')}
+      >
+        {note.name}</button
+      >
+    {/each}
+  </nav>
 </div>
-<section class="keyboard">
-  {#each notes as note}
-    <button
-      on:click|preventDefault={() => dispatch('add', note.semitone)}
-      class={note.name.toLowerCase().replace('#', 'sharp')}
-      class:sharp={note.name.includes('#')}
-    >
-      {note.name}</button
-    >
-  {/each}
-</section>
 
 <style lang="postcss">
+  .container {
+    width: 100%;
+    max-width: 40rem;
+    position: relative;
+  }
   .actions {
+    position: absolute;
+    z-index: 300;
+    top: -12px;
+    --overhang: 18px;
+    width: calc(100% + var(--overhang) * 2);
+    left: calc(-1 * var(--overhang));
+    right: calc(-1 * var(--overhang));
     display: flex;
     gap: 12px;
-    justify-content: center;
+    justify-content: space-between;
     margin: 0 0 24px;
+    & button {
+      font-size: 2em;
+      padding: 4px;
+      &.submit {
+        color: limegreen;
+      }
+    }
   }
   .keyboard {
     --columns-per-key: 3;
-    /* height: 200px; */
-    width: 100%;
-    max-width: 40rem;
-    min-width: 20rem;
+    margin: 0 auto;
     aspect-ratio: 3;
     display: grid;
     grid-template-rows: 2fr 1fr;

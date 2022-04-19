@@ -2,6 +2,7 @@
   import type { Melody } from '$lib/melody'
   import { onMount } from 'svelte'
   import * as Tone from 'tone'
+  import PlayIcon from '~icons/ion/play'
   import { getNotation } from './note'
   import { board } from './stores'
 
@@ -53,11 +54,15 @@
 </script>
 
 <section>
-  <button on:click={playReference}>Reference C'</button>
+  <div class="play-buttons">
+    <button class="reference" on:click={playReference}>C'</button>
 
-  <button disabled={requireReference || melodyPlayed} on:click={play}
-    >Play melody</button
-  >
+    <button
+      class="play"
+      disabled={requireReference || melodyPlayed}
+      on:click={play}><PlayIcon /></button
+    >
+  </div>
   {#if requireReference}
     <br />
     <small>
@@ -69,5 +74,22 @@
 <style lang="postcss">
   section {
     text-align: center;
+  }
+  .play-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  button {
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    border-radius: 100px;
+    padding-inline: 12px;
+    &.reference {
+      opacity: 0.7;
+      font-weight: bold;
+    }
   }
 </style>

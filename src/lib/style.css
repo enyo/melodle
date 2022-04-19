@@ -15,9 +15,13 @@ body {
 
 button {
   color: black;
+  margin: 0;
   border: 2px solid black;
+  border-radius: 3px;
   background: white;
   padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
   &[disabled] {
     color: #888;
     border-color: #aaa;

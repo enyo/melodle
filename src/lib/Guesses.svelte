@@ -18,7 +18,7 @@
   .guesses {
     display: grid;
     width: 100%;
-    max-width: 400px;
+    max-width: min(400px, 90vh - 400px);
     margin: 0 auto;
     aspect-ratio: 5 / 6;
     gap: 4px;
