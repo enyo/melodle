@@ -2,6 +2,7 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays/index.js
 import { get, writable } from 'svelte/store'
 import { melodies } from './melodies'
 import { isCorrect, type Melody } from './melody'
+import type { Semitone } from './note'
 
 type MelodyGuess = {
   melody: Melody
@@ -64,7 +65,6 @@ if (!storedBoard) {
     state: 'playing',
   }
 }
-
 const _board = writable<StoredBoard>(storedBoard)
 
 _board.subscribe((board) => {
@@ -97,7 +97,7 @@ const updateBoardState = (board: StoredBoard) => {
 export const board = {
   subscribe: _board.subscribe,
 
-  addGuessNote: (semitone) => {
+  addGuessNote: (semitone: Semitone) => {
     const board = get(_board)
     if (board.state !== 'playing') return
     let currentGuess = board.guesses[board.guesses.length - 1]

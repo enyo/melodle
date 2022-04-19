@@ -42,9 +42,3 @@
 
 <button on:click={playReference}>C'</button>
 <button on:click={play}>Play melody</button>
-
-<style>
-  button {
-    padding: 0.5em 1.5em;
-  }
-</style>

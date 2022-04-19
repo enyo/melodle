@@ -1,12 +1,12 @@
 <script lang="ts">
+  import { guess } from './melody'
   import { board } from './stores'
 
   let copied = false
   const share = () => {
     let boxes = ''
-    $board.guesses.forEach((guess) => {
-      boxes += $board.melody
-        .guess(guess.melody, { submitted: true })
+    $board.guesses.forEach((melodyGuess) => {
+      boxes += guess($board.melody, melodyGuess.melody, { submitted: true })
         .map((guess) => {
           switch (guess.status) {
             case 'correct':

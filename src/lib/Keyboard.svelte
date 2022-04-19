@@ -26,7 +26,7 @@
 
   onMount(() => {
     const validKeys = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11, h: 11 }
-    const keyListener = (event) => {
+    const keyListener = (event: KeyboardEvent) => {
       if (event.key === 'Backspace') {
         dispatch('delete')
       } else if (event.key === 'Enter') {
