@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Guess from '$lib/Guess.svelte'
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Playback from './Playback.svelte'

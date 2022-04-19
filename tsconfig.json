@@ -1,9 +1,9 @@
 {
   "extends": "./.svelte-kit/tsconfig.json",
-  "compilerOptions": {
-    "types": ["vitest/importMeta"]
-  },
   "module": "es2020",
   "lib": ["es2020", "DOM"],
-  "target": "es2020"
+  "target": "es2020",
+  "compilerOptions": {
+    "types": ["vitest/importMeta"]
+  }
 }
