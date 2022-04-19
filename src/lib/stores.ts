@@ -73,15 +73,23 @@ _board.subscribe((board) => {
   }
 })
 
-const _getCurrentGuess = () => {
+const _getCurrentGuess = (): MelodyGuess | null => {
   const board = get(_board)
+  if (board.state !== 'playing') return null
+
   const currentGuess = board.guesses[board.guesses.length - 1]
   if (!currentGuess || currentGuess.submitted) {
-    return
+    if (board.guesses.length === 6) throw 'This shouldnt happen'
+    // Create a new guess object
+    const guess = { melody: [], submitted: false, played: false }
+    board.guesses.push(guess)
+    return guess
+  } else {
+    return currentGuess
   }
-  return currentGuess
 }
-const updateBoardState = (board: StoredBoard) => {
+const updateBoardState = () => {
+  const board = get(_board)
   if (
     board.guesses
       .filter((guess) => guess.submitted)
@@ -94,72 +102,56 @@ const updateBoardState = (board: StoredBoard) => {
     board.state = 'playing'
   }
 }
+
+const _triggerUpdate = () => _board.set(get(_board))
+
 export const board = {
   subscribe: _board.subscribe,
 
   addGuessNote: (semitone: Semitone) => {
-    const board = get(_board)
-    if (board.state !== 'playing') return
-    let currentGuess = board.guesses[board.guesses.length - 1]
-
-    if (!currentGuess || currentGuess.submitted) {
-      currentGuess = { melody: [], submitted: false, played: false }
-      board.guesses.push(currentGuess)
-    }
-
-    if (currentGuess && currentGuess.melody.length >= 5) {
-      return
-    }
-
+    const currentGuess = _getCurrentGuess()
+    if (!currentGuess || currentGuess.melody.length >= 5) return
     currentGuess.melody.push(semitone)
 
-    // Trigger change detection
-    _board.set(board)
+    _triggerUpdate()
   },
   deleteGuess: () => {
-    const board = get(_board)
-    if (board.state !== 'playing') return
-    const currentGuess = board.guesses[board.guesses.length - 1]
-    if (!currentGuess || currentGuess.submitted) {
-      return
-    }
+    const currentGuess = _getCurrentGuess()
+    if (!currentGuess) return
     currentGuess.melody.pop()
-    // Trigger change detection
-    _board.set(board)
+    _triggerUpdate()
   },
   sharp: () => {
     const currentGuess = _getCurrentGuess()
-    if (currentGuess.melody.length === 0) return
+    if (!currentGuess || currentGuess.melody.length === 0) return
     currentGuess.melody[currentGuess.melody.length - 1] += 1
-    // Trigger change detection
-    _board.set(get(_board))
+    _triggerUpdate()
   },
   flat: () => {
     const currentGuess = _getCurrentGuess()
-    if (currentGuess.melody.length === 0) return
+    if (!currentGuess || currentGuess.melody.length === 0) return
     const idx = currentGuess.melody.length - 1
     currentGuess.melody[idx] -= 1
     if (currentGuess[idx] < 0) {
       currentGuess[idx] += 12
     }
-    // Trigger change detection
-    _board.set(get(_board))
+    _triggerUpdate()
   },
   submit: () => {
-    const board = get(_board)
-    if (board.state !== 'playing') return
-    const currentGuess = board.guesses[board.guesses.length - 1]
-    if (
-      !currentGuess ||
-      currentGuess.submitted ||
-      currentGuess.melody.length < 5
-    ) {
+    const currentGuess = _getCurrentGuess()
+
+    if (!currentGuess || currentGuess.melody.length < 5) {
       return
     }
     currentGuess.submitted = true
 
-    updateBoardState(board)
-    // Trigger change detection
-    _board.set(board)
+    updateBoardState()
+    _triggerUpdate()
+  },
+  melodyPlayed: () => {
+    const currentGuess = _getCurrentGuess()
+    if (!currentGuess) return
+    currentGuess.played = true
+    _triggerUpdate()
   },
 }
