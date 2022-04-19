@@ -2,6 +2,7 @@
   import Guess from '$lib/Guess.svelte'
   import Keyboard from './Keyboard.svelte'
   import Playback from './Playback.svelte'
+  import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores'
 
   const share = () => {
@@ -38,16 +39,17 @@
   }
 </script>
 
+{#if $board.state !== 'playing'}
+  <ShareSheet />
+{/if}
+
 <div class="board">
   <div class="playback">
     <Playback melody={$board.melody} />
   </div>
 
   <div class="guesses">
-    {#if $board.state !== 'playing'}
-      OVER!
-      <button on:click={share}>Share</button>
-    {/if}
+    {$board.melody.notes}
     {#each Array(6) as _, i}
       {@const guess = $board.guesses[i]}
       <Guess
