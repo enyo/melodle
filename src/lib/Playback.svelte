@@ -2,6 +2,7 @@
   import type { Melody } from '$lib/melody'
   import { onMount } from 'svelte'
   import * as Tone from 'tone'
+  import { getNotation } from './note'
 
   let synth: Tone.Synth | undefined
 
@@ -29,8 +30,12 @@
 
     Tone.Transport.bpm.setValueAtTime(tempo, now)
 
-    melody.notes.forEach((note, i) => {
-      synth.triggerAttackRelease(note.notation, '8n', now + time * i)
+    melody.forEach((semitone, i) => {
+      synth.triggerAttackRelease(
+        getNotation(semitone, { octave: true }),
+        '8n',
+        now + time * i,
+      )
     })
   }
 </script>

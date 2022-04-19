@@ -32,7 +32,7 @@
       } else if (event.key === 'Enter') {
         dispatch('submit')
       } else if (validKeys[event.key] !== undefined) {
-        dispatch('add', validKeys[event.key])
+        dispatch('add', validKeys[event.key] + 12 * 4)
       } else if (event.key == 'ArrowUp') {
         dispatch('sharp')
       } else if (event.key == 'ArrowDown') {
@@ -54,7 +54,7 @@
 <section class="keyboard">
   {#each notes as note}
     <button
-      on:click={() => dispatch('add', note.semitone)}
+      on:click|preventDefault={() => dispatch('add', note.semitone)}
       class={note.name.toLowerCase().replace('#', 'sharp')}
       class:sharp={note.name.includes('#')}
     >

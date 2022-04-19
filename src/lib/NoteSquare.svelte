@@ -3,11 +3,11 @@
 </script>
 
 <script lang="ts">
-  import type { Note } from './note'
-  export let note: Note | undefined
+  import { getNotation, type Semitone } from './note'
+  export let semitone: Semitone | undefined
   export let status: Status = undefined
 
-  $: displayNote = note ? note.notationWithoutOctave : ''
+  $: displayNote = typeof semitone !== 'undefined' ? getNotation(semitone) : ''
 </script>
 
 <div class={status}>{displayNote}</div>

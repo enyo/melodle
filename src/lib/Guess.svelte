@@ -1,24 +1,14 @@
 <script lang="ts">
-  import type { Melody } from './melody'
-  import type { Note } from './note'
-  import NoteSquare, { type Status } from './NoteSquare.svelte'
+  import { guess, type Melody } from './melody'
+  import NoteSquare from './NoteSquare.svelte'
 
   export let correctMelody: Melody
   export let guessedMelody: Melody | undefined
   export let submitted: boolean
 
-  type GuessedNote = {
-    note?: Note
-    status?: Status
-  }
-  let notes: GuessedNote[]
-  $: {
-    notes = guessedMelody
-      ? correctMelody.guess(guessedMelody, { submitted: submitted })
-      : [{}, {}, {}, {}, {}]
-  }
+  $: notes = guess(correctMelody, guessedMelody, { submitted: submitted })
 </script>
 
 {#each notes as note}
-  <NoteSquare note={note.note} status={note.status} />
+  <NoteSquare semitone={note.semitone} status={note.status} />
 {/each}
