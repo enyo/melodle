@@ -41,6 +41,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./build
-          # Optional. This will create a CNAME file so GitHub Pages serves it
-          # under this domain.
-          cname: www.dropzone.dev
+          cname: melodle.yesmeno.com
