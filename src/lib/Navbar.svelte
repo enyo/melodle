@@ -2,20 +2,32 @@
   import HelpIcon from '~icons/ion/md-help-circle-outline'
   import StatsIcon from '~icons/ion/stats-bars'
   import Modal from './Modal.svelte'
+  import ShareSheet from './ShareSheet.svelte'
+  import { board } from './stores'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
 
+  let showShareSheet = false
+
   const closeHelp = () => {
     showHelp = false
     localStorage.setItem('showedHelp', 'true')
+  }
+
+  $: {
+    if ($board.state !== 'playing') {
+      showShareSheet = true
+    }
   }
 </script>
 
 <nav>
   <a href="/" on:click|preventDefault={() => (showHelp = true)}><HelpIcon /></a>
   <strong>Melodle</strong>
-  <StatsIcon />
+  <a href="/" on:click|preventDefault={() => (showShareSheet = true)}
+    ><StatsIcon /></a
+  >
 </nav>
 
 {#if showHelp}
@@ -49,6 +61,12 @@
     </p>
 
     <p>A new Melodle is available each day.</p>
+  </Modal>
+{/if}
+
+{#if showShareSheet}
+  <Modal on:close={() => (showShareSheet = false)}>
+    <ShareSheet />
   </Modal>
 {/if}
 

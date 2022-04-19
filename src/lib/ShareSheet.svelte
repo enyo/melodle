@@ -1,6 +1,7 @@
 <script lang="ts">
   import { guess } from './melody'
   import { board } from './stores'
+  import ShareIcon from '~icons/ion/share-social'
 
   let copied = false
   const share = () => {
@@ -39,33 +40,24 @@
   }
 </script>
 
-<section>
-  <div class="content">
-    {#if $board.state === 'success'}
-      <h1>Success!</h1>
-    {:else if $board.state === 'failed'}
-      <h1>Better luck next time</h1>
-    {/if}
-    <button on:click={share}>Share</button>
-    <br />
-    {#if copied}
-      Copied!
-    {/if}
-  </div>
-</section>
+<h1>Statistics</h1>
+<p>Coming soon!</p>
+{#if $board.state === 'success'}
+  <h1>Success!</h1>
+{:else if $board.state === 'failed'}
+  <h1>Better luck next time</h1>
+{/if}
+<button on:click={share}>Share <ShareIcon /></button>
+<br />
+{#if copied}
+  Copied!
+{/if}
 
 <style lang="postcss">
-  section {
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    display: grid;
-    place-content: center;
-    background: #0007;
-  }
-  .content {
-    background: white;
-    border-radius: 5px;
-    padding: 24px;
+  button {
+    & :global(svg) {
+      margin-left: 0.4em;
+      font-size: 1.2em;
+    }
   }
 </style>

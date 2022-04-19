@@ -42,8 +42,10 @@
   }
   .content {
     position: relative;
-    width: 100%;
-    max-width: 600px;
+    width: 500px;
+    max-width: calc(100vw - 24px * 2);
+    max-height: calc(100vh - 24px * 2);
+    overflow-y: auto;
     background: white;
     border-radius: 5px;
     padding: 24px;

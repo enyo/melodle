@@ -3,13 +3,8 @@
   import Keyboard from './Keyboard.svelte'
   import Navbar from './Navbar.svelte'
   import Playback from './Playback.svelte'
-  import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores'
 </script>
-
-{#if $board.state !== 'playing'}
-  <ShareSheet />
-{/if}
 
 <div class="board">
   <Navbar />
