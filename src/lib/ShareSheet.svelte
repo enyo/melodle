@@ -21,7 +21,9 @@
         .join('')
       boxes += '\n'
     })
-    const shareText = `#Melodle 🎶\n${boxes}https://melodle.yesmeno.com`
+    const shareText = `#Melodle ${
+      $board.index + 1
+    } 🎶\n${boxes}https://melodle.yesmeno.com`
     if (
       typeof navigator.share !== 'undefined' &&
       navigator.canShare({ text: shareText })

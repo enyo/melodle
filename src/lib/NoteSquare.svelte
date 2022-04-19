@@ -15,14 +15,12 @@
 <style>
   div {
     font-size: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2em;
-    height: 2em;
-    border: 1px solid gray;
-    margin: 0.1em;
-    padding: 1em;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border: 2px solid silver;
+    margin: 0;
     font-weight: bold;
   }
   .wrong-position {

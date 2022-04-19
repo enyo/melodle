@@ -19,14 +19,6 @@
   }
 </script>
 
-<div class="container">
-  {#each notes as note}
-    <NoteSquare note={note.note} status={note.status} />
-  {/each}
-</div>
-
-<style>
-  .container {
-    display: flex;
-  }
-</style>
+{#each notes as note}
+  <NoteSquare note={note.note} status={note.status} />
+{/each}

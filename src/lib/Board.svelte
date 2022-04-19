@@ -1,42 +1,10 @@
 <script lang="ts">
   import Guess from '$lib/Guess.svelte'
+  import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Playback from './Playback.svelte'
   import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores'
-
-  const share = () => {
-    let boxes = ''
-    $board.guesses.forEach((guess) => {
-      boxes += $board.melody
-        .guess(guess.melody, { submitted: true })
-        .map((guess) => {
-          switch (guess.status) {
-            case 'correct':
-              return '🟩'
-            case 'incorrect':
-              return '⬜'
-            case 'wrong-position':
-              return '🟨'
-            default:
-              return '??'
-          }
-        })
-        .join('')
-      boxes += '\n'
-    })
-    const shareText = `#Melodle 🎶\n${boxes}https://melodle.yesmeno.com`
-    if (
-      typeof navigator.share !== 'undefined' &&
-      navigator.canShare({ text: shareText })
-    ) {
-      navigator.share({
-        text: shareText,
-      })
-    } else {
-      navigator.clipboard.writeText(shareText)
-    }
-  }
 </script>
 
 {#if $board.state !== 'playing'}
@@ -49,15 +17,7 @@
   </div>
 
   <div class="guesses">
-    {$board.melody.notes}
-    {#each Array(6) as _, i}
-      {@const guess = $board.guesses[i]}
-      <Guess
-        correctMelody={$board.melody}
-        guessedMelody={guess?.melody}
-        submitted={guess?.submitted ?? false}
-      />
-    {/each}
+    <Guesses />
   </div>
 
   <div class="keyboard">
@@ -75,9 +35,14 @@
   .board {
     display: grid;
     width: 100vw;
-    min-height: 100vh;
+    min-height: 80vh;
     padding: 24px;
-    grid-template-rows: 100px 1fr 200px;
+    gap: 24px;
+    grid-template-rows: auto 1fr auto;
     justify-items: center;
+  }
+  .guesses {
+    justify-self: stretch;
+    align-self: center;
   }
 </style>

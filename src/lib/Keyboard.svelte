@@ -47,8 +47,10 @@
   })
 </script>
 
-<button on:click={() => dispatch('delete')}>Delete</button>
-<button on:click={() => dispatch('submit')}>Submit</button>
+<div class="actions">
+  <button on:click={() => dispatch('delete')}>Delete</button>
+  <button on:click={() => dispatch('submit')}>Submit</button>
+</div>
 <section class="keyboard">
   {#each notes as note}
     <button
@@ -61,17 +63,26 @@
   {/each}
 </section>
 
-<style>
+<style lang="postcss">
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 0 0 24px;
+  }
   .keyboard {
     --columns-per-key: 3;
     /* height: 200px; */
     width: 100%;
     max-width: 40rem;
-    min-width: 30rem;
+    min-width: 20rem;
     aspect-ratio: 3;
     display: grid;
     grid-template-rows: 2fr 1fr;
     grid-template-columns: repeat(21, 1fr);
+    gap: 2px;
+    background: black;
+    padding: 3px;
   }
   .keyboard button {
     grid-area: 1 / 9 / 2;
@@ -83,10 +94,10 @@
     justify-content: center;
     align-items: flex-end;
 
-    border: 1px solid black;
+    border: none;
     font-size: 1rem;
     font-weight: bold;
-    padding: 1em 0;
+    padding: 0.5em 0;
   }
   .keyboard button:not(.sharp) {
     grid-row-start: 1;

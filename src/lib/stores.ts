@@ -1,6 +1,8 @@
 import { get, writable } from 'svelte/store'
 import { Melody } from './melody'
 import { Note } from './note'
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays/index.js'
+import { melodies } from './melodies'
 
 type MelodyGuess = {
   melody: Melody
@@ -15,19 +17,19 @@ type StoredBoard = {
   guesses: MelodyGuess[]
   state: BoardState
 }
-function _rand(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min
-}
-const _randNote = () => _rand(12 * 4, 12 * 5)
+
+const firstMelodle = new Date(2022, 3, 19)
+
+const index = Math.min(
+  melodies.length,
+  Math.max(0, differenceInCalendarDays(new Date(), firstMelodle)),
+)
+
+const melody = melodies[index]
+
 const _board = writable<StoredBoard>({
-  index: 2,
-  melody: new Melody([
-    _randNote(),
-    _randNote(),
-    _randNote(),
-    _randNote(),
-    _randNote(),
-  ]),
+  index: index,
+  melody: new Melody(melody),
   guesses: [],
   state: 'playing',
 })

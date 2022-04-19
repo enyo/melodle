@@ -12,3 +12,7 @@ body {
 *:before {
   box-sizing: border-box;
 }
+
+button {
+  color: black;
+}
