@@ -25,7 +25,7 @@ const index = Math.min(
   Math.max(0, differenceInCalendarDays(new Date(), firstMelodle)),
 )
 
-const melody = melodies[index]
+const melody = melodies[index].map((note) => note + 12 * 4)
 
 const _board = writable<StoredBoard>({
   index: index,

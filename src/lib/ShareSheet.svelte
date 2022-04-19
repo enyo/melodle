@@ -1,6 +1,7 @@
 <script lang="ts">
   import { board } from './stores'
 
+  let copied = false
   const share = () => {
     let boxes = ''
     $board.guesses.forEach((guess) => {
@@ -33,14 +34,23 @@
       })
     } else {
       navigator.clipboard.writeText(shareText)
+      copied = true
     }
   }
 </script>
 
 <section>
   <div class="content">
-    OVER!
+    {#if $board.state === 'success'}
+      <h1>Success!</h1>
+    {:else if $board.state === 'failed'}
+      <h1>Better luck next time</h1>
+    {/if}
     <button on:click={share}>Share</button>
+    <br />
+    {#if copied}
+      Copied!
+    {/if}
   </div>
 </section>
 
