@@ -108,7 +108,7 @@
     position: absolute;
     z-index: 300;
     top: 0;
-    bottom: 0;
+    bottom: 20%;
     --overhang: 18px;
     width: calc(100% + var(--overhang) * 2);
     left: calc(-1 * var(--overhang));
@@ -134,8 +134,9 @@
     display: grid;
     grid-template-rows: 2fr 1fr;
     grid-template-columns: repeat(21, 1fr);
-    gap: 2px;
+    gap: 3px;
     background: black;
+    border-radius: 10px;
     padding: 5px;
   }
   .keyboard button {
@@ -154,7 +155,10 @@
     padding: 0.5em 0;
 
     border-radius: 0 0 6px 6px;
-
+    &:first-child,
+    &:last-child {
+      border-radius: 6px;
+    }
     &:not(.sharp) {
       grid-row-start: 1;
       grid-row-end: 3;
