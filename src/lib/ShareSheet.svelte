@@ -42,15 +42,19 @@
 
 <h1>Statistics</h1>
 <p>Coming soon!</p>
-{#if $board.state === 'success'}
-  <h1>Success!</h1>
-{:else if $board.state === 'failed'}
-  <h1>Better luck next time</h1>
-{/if}
-<button on:click={share}>Share <ShareIcon /></button>
-<br />
-{#if copied}
-  Copied!
+{#if $board.state !== 'playing'}
+  <div class="share">
+    {#if $board.state === 'success'}
+      <h2>Success!</h2>
+    {:else if $board.state === 'failed'}
+      <h2>Better luck next time</h2>
+    {/if}
+    <button on:click={share}>Share <ShareIcon /></button>
+    <br />
+    {#if copied}
+      Copied!
+    {/if}
+  </div>
 {/if}
 
 <style lang="postcss">
@@ -59,5 +63,8 @@
       margin-left: 0.4em;
       font-size: 1.2em;
     }
+  }
+  .share {
+    text-align: center;
   }
 </style>

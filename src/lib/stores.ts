@@ -73,8 +73,8 @@ _board.subscribe((board) => {
   }
 })
 
-const _getCurrentGuess = (): MelodyGuess | null => {
-  const board = get(_board)
+export const getCurrentGuess = (board?: StoredBoard): MelodyGuess | null => {
+  board ??= get(_board)
   if (board.state !== 'playing') return null
 
   const currentGuess = board.guesses[board.guesses.length - 1]
@@ -109,26 +109,26 @@ export const board = {
   subscribe: _board.subscribe,
 
   addGuessNote: (semitone: Semitone) => {
-    const currentGuess = _getCurrentGuess()
+    const currentGuess = getCurrentGuess()
     if (!currentGuess || currentGuess.melody.length >= 5) return
     currentGuess.melody.push(semitone)
 
     _triggerUpdate()
   },
   deleteGuess: () => {
-    const currentGuess = _getCurrentGuess()
+    const currentGuess = getCurrentGuess()
     if (!currentGuess) return
     currentGuess.melody.pop()
     _triggerUpdate()
   },
   sharp: () => {
-    const currentGuess = _getCurrentGuess()
+    const currentGuess = getCurrentGuess()
     if (!currentGuess || currentGuess.melody.length === 0) return
     currentGuess.melody[currentGuess.melody.length - 1] += 1
     _triggerUpdate()
   },
   flat: () => {
-    const currentGuess = _getCurrentGuess()
+    const currentGuess = getCurrentGuess()
     if (!currentGuess || currentGuess.melody.length === 0) return
     const idx = currentGuess.melody.length - 1
     currentGuess.melody[idx] -= 1
@@ -138,7 +138,7 @@ export const board = {
     _triggerUpdate()
   },
   submit: () => {
-    const currentGuess = _getCurrentGuess()
+    const currentGuess = getCurrentGuess()
 
     if (!currentGuess || currentGuess.melody.length < 5) {
       return
@@ -149,7 +149,7 @@ export const board = {
     _triggerUpdate()
   },
   melodyPlayed: () => {
-    const currentGuess = _getCurrentGuess()
+    const currentGuess = getCurrentGuess()
     if (!currentGuess) return
     currentGuess.played = true
     _triggerUpdate()

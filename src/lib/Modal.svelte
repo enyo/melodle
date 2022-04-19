@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+  import { fade, scale } from 'svelte/transition'
   import CloseIcon from '~icons/ion/close-circle-outline'
 
   const dispatch = createEventDispatcher<{
@@ -7,9 +8,9 @@
   }>()
 </script>
 
-<section>
+<section transition:fade={{ duration: 100 }}>
   <div class="backdrop" on:click={() => dispatch('close')} />
-  <div class="content">
+  <div class="content" transition:scale={{ start: 0.8 }}>
     <button class="close" on:click={() => dispatch('close')}
       ><CloseIcon /></button
     >

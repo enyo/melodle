@@ -2,6 +2,8 @@
   import { createEventDispatcher, onMount } from 'svelte'
   import DeleteIcon from '~icons/ion/backspace-outline'
   import SubmitIcon from '~icons/ion/checkmark-circle-outline'
+  import { board, getCurrentGuess } from './stores'
+  import { fade } from 'svelte/transition'
 
   const dispatch = createEventDispatcher<{
     add: number
@@ -47,16 +49,37 @@
     document.addEventListener('keydown', keyListener)
     return () => document.removeEventListener('keydown', keyListener)
   })
+
+  let showSubmit = false
+  let showDelete = false
+
+  $: {
+    const currentGuess = getCurrentGuess($board)
+    showSubmit =
+      currentGuess &&
+      !currentGuess.submitted &&
+      currentGuess.melody.length === 5
+    showDelete =
+      currentGuess && !currentGuess.submitted && currentGuess.melody.length > 0
+  }
 </script>
 
-<div class="container">
+<div class="container" class:finished={$board.state !== 'playing'}>
   <div class="actions">
-    <button class="delete" on:click={() => dispatch('delete')}
-      ><DeleteIcon /></button
-    >
-    <button class="submit" on:click={() => dispatch('submit')}
-      ><SubmitIcon /></button
-    >
+    {#if showDelete}
+      <button
+        transition:fade={{ duration: 100 }}
+        class="delete"
+        on:click={() => dispatch('delete')}><DeleteIcon /></button
+      >
+    {/if}
+    {#if showSubmit}
+      <button
+        transition:fade={{ duration: 100 }}
+        class="submit"
+        on:click={() => dispatch('submit')}><SubmitIcon /></button
+      >
+    {/if}
   </div>
   <nav class="keyboard">
     {#each notes as note}
@@ -74,13 +97,18 @@
 <style lang="postcss">
   .container {
     width: 100%;
-    max-width: 40rem;
+    max-width: min(40rem, 60vh);
     position: relative;
+    &.finished {
+      opacity: 0.2;
+      pointer-events: none;
+    }
   }
   .actions {
     position: absolute;
     z-index: 300;
-    top: -12px;
+    top: 0;
+    bottom: 0;
     --overhang: 18px;
     width: calc(100% + var(--overhang) * 2);
     left: calc(-1 * var(--overhang));
@@ -88,8 +116,10 @@
     display: flex;
     gap: 12px;
     justify-content: space-between;
-    margin: 0 0 24px;
+    align-items: center;
+    pointer-events: none;
     & button {
+      pointer-events: all;
       font-size: 2em;
       padding: 4px;
       &.submit {
@@ -106,7 +136,7 @@
     grid-template-columns: repeat(21, 1fr);
     gap: 2px;
     background: black;
-    padding: 3px;
+    padding: 5px;
   }
   .keyboard button {
     grid-area: 1 / 9 / 2;
@@ -122,28 +152,31 @@
     font-size: 1rem;
     font-weight: bold;
     padding: 0.5em 0;
-  }
-  .keyboard button:not(.sharp) {
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column-start: calc(var(--columns-per-key) * var(--key) + 1);
-    grid-column-end: calc(var(--columns-per-key) * (var(--key) + 1) + 1);
-    background: white;
-  }
-  .keyboard button:not(.sharp):hover {
-    background: #ccc;
-  }
-  .keyboard button.sharp {
-    z-index: 100;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: calc(var(--columns-per-key) * var(--key) + 3);
-    grid-column-end: calc(var(--columns-per-key) * (var(--key) + 1) + 2);
-    background: black;
-    color: white;
-  }
-  .keyboard button.sharp:hover {
-    background: #333;
+
+    border-radius: 0 0 6px 6px;
+
+    &:not(.sharp) {
+      grid-row-start: 1;
+      grid-row-end: 3;
+      grid-column-start: calc(var(--columns-per-key) * var(--key) + 1);
+      grid-column-end: calc(var(--columns-per-key) * (var(--key) + 1) + 1);
+      background: white;
+      &:hover {
+        background: #ccc;
+      }
+    }
+    &.sharp {
+      z-index: 100;
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: calc(var(--columns-per-key) * var(--key) + 3);
+      grid-column-end: calc(var(--columns-per-key) * (var(--key) + 1) + 2);
+      background: black;
+      color: white;
+      &:hover {
+        background: #333;
+      }
+    }
   }
 
   .keyboard button.c {

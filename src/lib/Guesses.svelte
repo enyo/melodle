@@ -22,7 +22,7 @@
     margin: 0 auto;
     aspect-ratio: 5 / 6;
     gap: 4px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
   }
 </style>

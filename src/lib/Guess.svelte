@@ -1,6 +1,6 @@
 <script lang="ts">
   import { guess, type Melody } from './melody'
-  import NoteSquare from './NoteSquare.svelte'
+  import Tile from './Tile.svelte'
 
   export let correctMelody: Melody
   export let guessedMelody: Melody | undefined
@@ -10,5 +10,5 @@
 </script>
 
 {#each notes as note}
-  <NoteSquare semitone={note.semitone} status={note.status} />
+  <Tile semitone={note.semitone} status={note.status} />
 {/each}
