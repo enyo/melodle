@@ -42,17 +42,17 @@
 
 <p>Coming soon!</p>
 {#if $board.state !== 'playing'}
+  <hr />
   <div class="share">
     {#if $board.state === 'success'}
-      <h2>Success!</h2>
+      Success!
     {:else if $board.state === 'failed'}
-      <h2>Better luck next time</h2>
+      Better luck next time
+    {/if}
+    {#if copied}
+      <span>Copied!</span>
     {/if}
     <button on:click={share}>Share <ShareIcon /></button>
-    <br />
-    {#if copied}
-      Copied!
-    {/if}
   </div>
 {/if}
 
@@ -64,6 +64,9 @@
     }
   }
   .share {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
   }
 </style>
