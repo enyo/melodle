@@ -25,7 +25,7 @@
   .board {
     display: grid;
     width: 100vw;
-    height: var(--size-game-height);
+    height: var(--size-viewport-height);
     padding: var(--size-spacing);
     gap: calc(var(--size-spacing) * 3);
     grid-template-rows: auto var(--size-board-height) auto;

@@ -31,9 +31,7 @@
 </nav>
 
 {#if showHelp}
-  <Modal on:close={closeHelp}>
-    <h1>Rules</h1>
-
+  <Modal on:close={closeHelp} title="Rules">
     <p>Guess the melody in 6 tries.</p>
 
     <p>
@@ -64,7 +62,7 @@
 {/if}
 
 {#if showShareSheet}
-  <Modal on:close={() => (showShareSheet = false)}>
+  <Modal on:close={() => (showShareSheet = false)} title="Statistics">
     <ShareSheet />
   </Modal>
 {/if}

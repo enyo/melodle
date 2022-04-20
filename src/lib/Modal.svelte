@@ -3,6 +3,8 @@
   import { fade, scale } from 'svelte/transition'
   import CloseIcon from '~icons/ion/close-circle-outline'
 
+  export let title: string = ''
+
   const dispatch = createEventDispatcher<{
     close: void
   }>()
@@ -11,10 +13,15 @@
 <section transition:fade={{ duration: 100 }}>
   <div class="backdrop" on:click={() => dispatch('close')} />
   <div class="content" transition:scale={{ start: 0.8 }}>
-    <button class="close" on:click={() => dispatch('close')}
-      ><CloseIcon /></button
-    >
-    <slot />
+    <header>
+      <h1>{title}</h1>
+      <button class="close" on:click={() => dispatch('close')}
+        ><CloseIcon /></button
+      >
+    </header>
+    <div class="body">
+      <slot />
+    </div>
   </div>
 </section>
 
@@ -29,9 +36,6 @@
   }
   .close {
     all: unset;
-    position: absolute;
-    right: 12px;
-    top: 12px;
     background: transparent;
     font-size: 2em;
     cusor: pointer;
@@ -45,10 +49,24 @@
     position: relative;
     width: 500px;
     max-width: calc(100vw - 24px * 2);
-    max-height: calc(100vh - 24px * 2);
-    overflow-y: auto;
+    max-height: calc(var(--size-viewport-height) - 24px * 2);
     background: white;
     border-radius: 5px;
-    padding: 24px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    & header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 12px;
+    }
+    & .body {
+      flex: 1;
+      overflow-y: auto;
+      padding-inline: 12px;
+    }
   }
 </style>

@@ -6,9 +6,9 @@
   --size-navbar: 30px;
   --size-keyboard-height: 120px;
   --size-actions-height: 48px;
-  --size-game-height: 90vh;
+  --size-viewport-height: 90vh;
   --size-board-height: calc(
-    var(--size-game-height) -
+    var(--size-viewport-height) -
       (
         10 * var(--size-spacing) + var(--size-keyboard-height) +
           var(--size-actions-height) + var(--size-navbar)
@@ -17,7 +17,7 @@
 }
 @supports (height: 100svh) {
   :root {
-    --size-game-height: 100svh;
+    --size-viewport-height: 100svh;
   }
 }
 

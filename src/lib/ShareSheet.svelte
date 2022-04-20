@@ -40,7 +40,6 @@
   }
 </script>
 
-<h1>Statistics</h1>
 <p>Coming soon!</p>
 {#if $board.state !== 'playing'}
   <div class="share">
