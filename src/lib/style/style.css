@@ -2,12 +2,31 @@
 :root {
   --color-primary: rgba(131, 58, 180, 1);
   --color-success: #07bb07;
+  --size-spacing: 12px;
+  --size-navbar: 30px;
+  --size-keyboard-height: 120px;
+  --size-actions-height: 48px;
+  --size-game-height: 90vh;
+  --size-board-height: calc(
+    var(--size-game-height) -
+      (
+        10 * var(--size-spacing) + var(--size-keyboard-height) +
+          var(--size-actions-height) + var(--size-navbar)
+      )
+  );
+}
+@supports (height: 100svh) {
+  :root {
+    --size-game-height: 100svh;
+  }
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
+  background: white;
+  overflow: hidden;
 }
 body {
   font-family: 'Roboto', sans-serif;

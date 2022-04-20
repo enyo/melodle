@@ -109,10 +109,11 @@
     display: flex;
     touch-action: manipulation;
 
-    gap: 12px;
+    gap: var(--size-spacing);
+    height: var(--size-actions-height);
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
+    margin-bottom: var(--size-spacing);
 
     & button {
       pointer-events: all;
@@ -133,7 +134,8 @@
 
     --columns-per-key: 3;
     margin: 0 auto;
-    aspect-ratio: 3;
+    width: 100%;
+    height: var(--size-keyboard-height);
     display: grid;
     grid-template-rows: 2fr 1fr;
     grid-template-columns: repeat(21, 1fr);

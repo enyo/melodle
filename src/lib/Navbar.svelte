@@ -72,6 +72,7 @@
 <style lang="postcss">
   nav {
     width: 100%;
+    height: var(--size-navbar);
     display: flex;
     justify-content: space-between;
     align-items: center;

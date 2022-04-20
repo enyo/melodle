@@ -17,15 +17,18 @@
 <style>
   .guesses {
     display: grid;
-    width: 100%;
-    max-width: min(400px, 90vh - 400px);
-    margin: 0 auto;
-    aspect-ratio: 5 / 6;
+    width: min(
+      400px,
+      min(100vw - var(--size-spacing) * 2, var(--size-board-height) * 5 / 6)
+    );
+    aspect-ratio: 5/6;
     gap: 5px;
     padding: 5px;
     border-radius: 5px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-template-rows: repeat(6, minmax(0, 1fr));
+    justify-content: center;
+    align-content: center;
     background: var(--color-primary);
     background: #ddd;
   }

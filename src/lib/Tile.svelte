@@ -15,9 +15,9 @@
 <style lang="postcss">
   div {
     font-size: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+    aspect-ratio: 1;
     width: 100%;
     height: 100%;
-    aspect-ratio: 1;
     display: grid;
     place-items: center;
     /* border: 2px solid silver; */

@@ -25,15 +25,14 @@
   .board {
     display: grid;
     width: 100vw;
-    min-height: 90vh;
-    min-height: 100svh;
-    padding: 12px;
-    gap: 12px;
-    grid-template-rows: auto 1fr auto;
+    height: var(--size-game-height);
+    padding: var(--size-spacing);
+    gap: calc(var(--size-spacing) * 3);
+    grid-template-rows: auto var(--size-board-height) auto;
     justify-items: center;
   }
   .guesses {
-    justify-self: stretch;
     align-self: center;
+    justify-self: center;
   }
 </style>
