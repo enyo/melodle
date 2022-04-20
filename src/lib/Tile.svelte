@@ -20,10 +20,11 @@
     aspect-ratio: 1;
     display: grid;
     place-items: center;
-    border: 2px solid silver;
+    /* border: 2px solid silver; */
     margin: 0;
     font-weight: bold;
-    border-radius: 3px;
+    border-radius: 2px;
+    background: white;
   }
   .wrong-position,
   .correct,

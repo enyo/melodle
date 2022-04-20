@@ -21,8 +21,12 @@
     max-width: min(400px, 90vh - 400px);
     margin: 0 auto;
     aspect-ratio: 5 / 6;
-    gap: 4px;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 5px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-template-rows: repeat(6, minmax(0, 1fr));
+    background: var(--color-primary);
+    background: #ddd;
   }
 </style>
