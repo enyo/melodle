@@ -26,8 +26,8 @@ jobs:
       - name: Run checks
         run: pnpm run check
 
-      - name: Test site
-        run: pnpm run test
+      # - name: Test site
+      #   run: pnpm run test
 
       - name: Build site
         run: pnpm run build
