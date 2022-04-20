@@ -71,7 +71,6 @@
       transition:fade={{ duration: 100 }}
       class="delete round"
       class:hidden={!showDelete}
-      disabled={!showDelete}
       on:click={() => dispatch('delete')}><DeleteIcon /></button
     >
     <Playback />
@@ -108,6 +107,8 @@
   }
   .actions {
     display: flex;
+    touch-action: manipulation;
+
     gap: 12px;
     justify-content: space-between;
     align-items: flex-start;
@@ -117,7 +118,7 @@
       pointer-events: all;
       font-size: 1.5em;
       padding: 4px;
-      &[disabled] {
+      &.hidden {
         opacity: 0.2;
       }
       &.submit:not([disabled]) {
@@ -128,6 +129,8 @@
     }
   }
   .keyboard {
+    touch-action: manipulation;
+
     --columns-per-key: 3;
     margin: 0 auto;
     aspect-ratio: 3;
