@@ -35,6 +35,11 @@ const _getStats = (): Stats => {
 }
 
 const _stats = writable<Stats>(_getStats())
+_stats.subscribe((stats) => {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(_key, JSON.stringify(stats))
+  }
+})
 
 export const stats = {
   subscribe: _stats.subscribe,
