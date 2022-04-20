@@ -1,6 +1,6 @@
 <script lang="ts">
   import Guess from '$lib/Guess.svelte'
-  import { board } from './stores'
+  import { board } from './stores/board'
 </script>
 
 <div class="guesses">

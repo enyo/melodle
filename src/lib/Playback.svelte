@@ -3,7 +3,7 @@
   import * as Tone from 'tone'
   import PlayIcon from '~icons/ion/play'
   import { getNotation } from './note'
-  import { board } from './stores'
+  import { board } from './stores/board'
 
   let synth: Tone.Synth | undefined
 

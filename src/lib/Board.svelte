@@ -2,7 +2,7 @@
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Navbar from './Navbar.svelte'
-  import { board } from './stores'
+  import { board } from './stores/board'
 </script>
 
 <div class="board">

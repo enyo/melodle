@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte'
   import DeleteIcon from '~icons/ion/backspace-outline'
   import SubmitIcon from '~icons/ion/checkmark'
-  import { board, getCurrentGuess } from './stores'
+  import { board, getCurrentGuess } from './stores/board'
   import { fade } from 'svelte/transition'
   import Playback from './Playback.svelte'
 

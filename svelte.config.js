@@ -28,6 +28,12 @@ const config = {
           compiler: 'svelte',
         }),
       ],
+      define: {
+        'import.meta.vitest': 'undefined',
+      },
+      test: {
+        includeSource: ['src/**/*.{js,ts}', 'src/lib/stores/**/*.{js,ts}'],
+      },
     },
   },
 }

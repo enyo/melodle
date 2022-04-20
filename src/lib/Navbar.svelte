@@ -3,7 +3,7 @@
   import StatsIcon from '~icons/ion/stats-bars'
   import Modal from './Modal.svelte'
   import ShareSheet from './ShareSheet.svelte'
-  import { board } from './stores'
+  import { board } from './stores/board'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
