@@ -1,6 +1,6 @@
 @import 'reset.css';
 :root {
-  --color-primary: #0000e4;
+  --color-primary: rgba(131, 58, 180, 1);
   --color-success: #10c110;
 }
 

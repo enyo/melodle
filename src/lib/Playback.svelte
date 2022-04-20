@@ -63,7 +63,7 @@
   </div>
   {#if requireReference}
     <small>
-      Play the reference note first, to make sure your audio is working
+      Play the reference C' first, to make sure your audio is working
     </small>
   {/if}
 </section>
@@ -74,9 +74,19 @@
     position: relative;
   }
   small {
+    z-index: 2000;
+    position: absolute;
+    background: white;
+    top: 44px;
+    width: 18em;
+    left: 50%;
+    transform: translateX(-50%);
     display: block;
     text-align: center;
     margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--color-primary);
+    padding: 0.5em 1em;
   }
   .play-buttons {
     display: flex;

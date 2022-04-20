@@ -37,9 +37,8 @@
     <p>Guess the melody in 6 tries.</p>
 
     <p>
-      Before each guess, you can play the melody <strong>once</strong>. I
-      recommend to listen to the reference C' tone to make sure your audio is
-      working.
+      Before each guess, you can play the melody <strong>once</strong>. Listen
+      to the reference C' tone first to make sure your audio is working.
     </p>
 
     <h2>Mobile users</h2>

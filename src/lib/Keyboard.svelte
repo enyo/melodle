@@ -115,7 +115,7 @@
 
     & button {
       pointer-events: all;
-      font-size: 2em;
+      font-size: 1.5em;
       padding: 4px;
       &[disabled] {
         opacity: 0.2;
@@ -135,7 +135,14 @@
     grid-template-rows: 2fr 1fr;
     grid-template-columns: repeat(21, 1fr);
     gap: 3px;
-    background: black;
+    background: rgba(131, 58, 180, 1);
+    background: linear-gradient(
+      90deg,
+      rgba(131, 58, 180, 1) 0%,
+      rgba(253, 29, 29, 1) 50%,
+      rgba(252, 176, 69, 1) 100%
+    );
+
     border-radius: 10px;
     padding: 5px;
   }
