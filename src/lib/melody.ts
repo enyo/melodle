@@ -29,37 +29,40 @@ export const guess = (
 ): GuessResult => {
   if (!guess) return [{}, {}, {}, {}, {}]
 
-  const notes: GuessResult = []
+  // We don't care about the octave
+  guess = guess.map((semitone) => semitone % 12)
   const remainingMelodyNotes = correct.map((semitone) => semitone % 12)
 
+  const guessResult: GuessResult = []
+
   for (let i = 0; i < 5; i++) {
-    const semitone = guess[i]
-
-    if (typeof semitone === 'undefined') {
-      notes[i] = {}
-      continue
-    }
-
-    /// We don't care in which octave it is
-    const noteSemitone = semitone % 12
-
-    let status: Status
-    if (submitted) {
-      if (remainingMelodyNotes[i] === noteSemitone) {
-        status = 'correct'
-        remainingMelodyNotes[i] = undefined
-      } else if (remainingMelodyNotes.includes(noteSemitone)) {
-        status = 'wrong-position'
-        remainingMelodyNotes[remainingMelodyNotes.indexOf(noteSemitone)] =
-          undefined
-      } else {
-        status = 'incorrect'
-      }
-    }
-
-    notes[i] = { semitone: semitone, status }
+    guessResult[i] = guess[i] !== undefined ? { semitone: guess[i] } : {}
   }
-  return notes
+
+  if (submitted) {
+    // First handle all correct notes
+    guess.forEach((semitone, i) => {
+      if (remainingMelodyNotes[i] === semitone) {
+        guessResult[i].status = 'correct'
+        remainingMelodyNotes[i] = undefined
+      }
+    })
+    // Now handle all wrong-position notes
+    guess.forEach((semitone, i) => {
+      if (
+        guessResult[i].status === undefined &&
+        remainingMelodyNotes.includes(semitone)
+      ) {
+        guessResult[i].status = 'wrong-position'
+        remainingMelodyNotes[remainingMelodyNotes.indexOf(semitone)] = undefined
+      }
+    })
+    // Now fill all other guesses with incorrect.
+    guessResult
+      .filter((guess) => guess.status === undefined)
+      .forEach((guess) => (guess.status = 'incorrect'))
+  }
+  return guessResult
 }
 
 if (import.meta.vitest) {
@@ -106,13 +109,26 @@ if (import.meta.vitest) {
     expect(guessResult[3].status).toBe('incorrect')
     expect(guessResult[4].status).toBe('wrong-position')
   })
+  it('handles multiple notes correctly', () => {
+    const correct: Melody = [11, 0, 10, 8, 0]
+
+    // G# (8) appears twice, but the first should be incorrect, and the second
+    // correct.
+    const guessResult = guess(correct, fromString('8 11 10 8 0'), {
+      submitted: true,
+    })
+    expect(guessResult[0].status).toBe('incorrect')
+    expect(guessResult[1].status).toBe('wrong-position')
+    expect(guessResult[2].status).toBe('correct')
+    expect(guessResult[3].status).toBe('correct')
+    expect(guessResult[4].status).toBe('correct')
+  })
   it('evaluates guesses independent of octaves', () => {
     const correct = fromString('0 12 0 12 0')
     const guessResult = guess(correct, fromString('0 12 24 36 48'), {
       submitted: true,
     })
 
-    console.log(guessResult)
     expect(guessResult).toHaveLength(5)
     expect(guessResult[0].status).toBe('correct')
     expect(guessResult[1].status).toBe('correct')
