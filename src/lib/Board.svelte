@@ -25,10 +25,10 @@
   .board {
     display: grid;
     width: 100vw;
-    min-height: 80vh;
+    min-height: 90vh;
     min-height: 100svh;
-    padding: 24px;
-    gap: 24px;
+    padding: 12px;
+    gap: 12px;
     grid-template-rows: auto 1fr auto;
     justify-items: center;
   }
