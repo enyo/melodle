@@ -2,7 +2,7 @@
   import HelpIcon from '~icons/ion/md-help-circle-outline'
   import StatsIcon from '~icons/ion/stats-bars'
   import Modal from './Modal.svelte'
-  import ShareSheet from './ShareSheet.svelte'
+  import Stats from './Stats.svelte'
   import { board } from './stores/board'
 
   let showHelp =
@@ -63,7 +63,7 @@
 
 {#if showShareSheet}
   <Modal on:close={() => (showShareSheet = false)} title="Statistics">
-    <ShareSheet />
+    <Stats />
   </Modal>
 {/if}
 

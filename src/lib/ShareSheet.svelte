@@ -1,7 +1,7 @@
 <script lang="ts">
+  import ShareIcon from '~icons/ion/share-social'
   import { guess } from './melody'
   import { board } from './stores/board'
-  import ShareIcon from '~icons/ion/share-social'
 
   let copied = false
   const share = () => {
@@ -40,21 +40,17 @@
   }
 </script>
 
-<p>Coming soon!</p>
-{#if $board.state !== 'playing'}
-  <hr />
-  <div class="share">
-    {#if $board.state === 'success'}
-      Success!
-    {:else if $board.state === 'failed'}
-      Better luck next time
-    {/if}
-    {#if copied}
-      <span>Copied!</span>
-    {/if}
-    <button on:click={share}>Share <ShareIcon /></button>
-  </div>
-{/if}
+<div class="share">
+  {#if $board.state === 'success'}
+    Success!
+  {:else if $board.state === 'failed'}
+    Better luck next time
+  {/if}
+  {#if copied}
+    <span>Copied!</span>
+  {/if}
+  <button on:click={share}>Share <ShareIcon /></button>
+</div>
 
 <style lang="postcss">
   button {
