@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Melody } from '$lib/melody'
   import { onMount } from 'svelte'
   import * as Tone from 'tone'
   import PlayIcon from '~icons/ion/play'
@@ -8,7 +7,6 @@
 
   let synth: Tone.Synth | undefined
 
-  export let melody: Melody
   const tempo = 100
 
   let melodyPlayed = false
@@ -41,7 +39,7 @@
 
     Tone.Transport.bpm.setValueAtTime(tempo, now)
 
-    melody.forEach((semitone, i) => {
+    $board.melody.forEach((semitone, i) => {
       synth.triggerAttackRelease(
         getNotation(semitone, { octave: true }),
         '8n',
@@ -55,16 +53,15 @@
 
 <section>
   <div class="play-buttons">
-    <button class="reference" on:click={playReference}>C'</button>
+    <button class="reference round" on:click={playReference}>C'</button>
 
     <button
-      class="play"
+      class="play round"
       disabled={requireReference || melodyPlayed}
       on:click={play}><PlayIcon /></button
     >
   </div>
   {#if requireReference}
-    <br />
     <small>
       Play the reference note first, to make sure your audio is working
     </small>
@@ -74,6 +71,12 @@
 <style lang="postcss">
   section {
     text-align: center;
+    position: relative;
+  }
+  small {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
   }
   .play-buttons {
     display: flex;
@@ -82,14 +85,19 @@
     gap: 12px;
   }
   button {
-    width: 48px;
-    height: 48px;
-    justify-content: center;
-    border-radius: 100px;
-    padding-inline: 12px;
     &.reference {
       opacity: 0.7;
       font-weight: bold;
+    }
+    &.play {
+      --button-text: white;
+      --button-bg: black;
+      --button-border: black;
+      --button-bg-hover: #333;
+
+      --button-disabled-text: #fff;
+      --button-disabled-bg: #ccc;
+      --button-disabled-border: #ccc;
     }
   }
 </style>

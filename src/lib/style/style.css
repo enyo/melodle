@@ -1,4 +1,8 @@
 @import 'reset.css';
+:root {
+  --color-primary: #0000e4;
+  --color-success: #10c110;
+}
 
 html,
 body {
@@ -15,23 +19,45 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  color: var(--color-primary);
+}
 button {
-  color: black;
+  --button-text: black;
+  --button-border: black;
+  --button-bg: white;
+  --button-bg-hover: #eee;
+
+  --button-disabled-text: #888;
+  --button-disabled-border: #aaa;
+  --button-disabled-bg: #eee;
+
+  color: var(--button-text);
   margin: 0;
-  border: 2px solid black;
+  border: 2px solid var(--button-border);
   border-radius: 3px;
-  background: white;
+  background: var(--button-bg);
   padding: 12px 18px;
   display: inline-flex;
   align-items: center;
   &[disabled] {
-    color: #888;
-    border-color: #aaa;
-    background: #eee;
+    color: var(--button-disabled-text);
+    border-color: var(--button-disabled-border);
+    background: var(--button-disabled-bg);
     cursor: not-allowed;
+    &:hover {
+      background: var(--button-disabled-bg);
+    }
   }
   &:hover {
-    background: #eee;
+    background: var(--button-bg-hover);
+  }
+  &.round {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 1000px;
+    justify-content: center;
   }
 }
 

@@ -23,6 +23,7 @@
     border: 2px solid silver;
     margin: 0;
     font-weight: bold;
+    border-radius: 3px;
   }
   .wrong-position,
   .correct,

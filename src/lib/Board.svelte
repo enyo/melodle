@@ -2,16 +2,11 @@
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Navbar from './Navbar.svelte'
-  import Playback from './Playback.svelte'
   import { board } from './stores'
 </script>
 
 <div class="board">
   <Navbar />
-
-  <div class="playback">
-    <Playback melody={$board.melody} />
-  </div>
 
   <div class="guesses">
     <Guesses />
@@ -33,7 +28,7 @@
     min-height: 80vh;
     padding: 24px;
     gap: 24px;
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-rows: auto 1fr auto;
     justify-items: center;
   }
   .guesses {

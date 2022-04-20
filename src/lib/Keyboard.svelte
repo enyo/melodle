@@ -1,9 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte'
   import DeleteIcon from '~icons/ion/backspace-outline'
-  import SubmitIcon from '~icons/ion/checkmark-circle-outline'
+  import SubmitIcon from '~icons/ion/checkmark'
   import { board, getCurrentGuess } from './stores'
   import { fade } from 'svelte/transition'
+  import Playback from './Playback.svelte'
 
   const dispatch = createEventDispatcher<{
     add: number
@@ -66,20 +67,21 @@
 
 <div class="container" class:finished={$board.state !== 'playing'}>
   <div class="actions">
-    {#if showDelete}
-      <button
-        transition:fade={{ duration: 100 }}
-        class="delete"
-        on:click={() => dispatch('delete')}><DeleteIcon /></button
-      >
-    {/if}
-    {#if showSubmit}
-      <button
-        transition:fade={{ duration: 100 }}
-        class="submit"
-        on:click={() => dispatch('submit')}><SubmitIcon /></button
-      >
-    {/if}
+    <button
+      transition:fade={{ duration: 100 }}
+      class="delete round"
+      class:hidden={!showDelete}
+      disabled={!showDelete}
+      on:click={() => dispatch('delete')}><DeleteIcon /></button
+    >
+    <Playback />
+    <button
+      transition:fade={{ duration: 100 }}
+      class="submit round"
+      class:hidden={!showSubmit}
+      disabled={!showSubmit}
+      on:click={() => dispatch('submit')}><SubmitIcon /></button
+    >
   </div>
   <nav class="keyboard">
     {#each notes as note}
@@ -105,25 +107,23 @@
     }
   }
   .actions {
-    position: absolute;
-    z-index: 300;
-    top: 0;
-    bottom: 20%;
-    --overhang: 18px;
-    width: calc(100% + var(--overhang) * 2);
-    left: calc(-1 * var(--overhang));
-    right: calc(-1 * var(--overhang));
     display: flex;
     gap: 12px;
     justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
+    align-items: flex-start;
+    margin-bottom: 12px;
+
     & button {
       pointer-events: all;
       font-size: 2em;
       padding: 4px;
-      &.submit {
-        color: limegreen;
+      &[disabled] {
+        opacity: 0.2;
+      }
+      &.submit:not([disabled]) {
+        --button-text: var(--color-success);
+        --button-border: var(--color-success);
+        --button-bg-hover: #10c11011;
       }
     }
   }
