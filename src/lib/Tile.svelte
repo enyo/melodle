@@ -33,12 +33,12 @@
     color: white;
   }
   .wrong-position {
-    --color: #c4b466;
+    --color: #e6bc5a;
   }
   .correct {
-    --color: #76a567;
+    --color: var(--color-success);
   }
   .incorrect {
-    --color: #888888;
+    --color: #aaa;
   }
 </style>
