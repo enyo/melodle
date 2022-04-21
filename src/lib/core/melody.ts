@@ -1,3 +1,4 @@
+import type { Difficulty } from '$lib/stores/difficulty'
 import { getNotation, type Semitone } from './note'
 
 export type Melody = Semitone[]
@@ -36,9 +37,10 @@ export const guess = (
   correct: Melody,
   guess: Melody,
   {
+    difficulty,
     submitted = false,
     mode = 'adjacent',
-  }: { submitted?: boolean; mode?: GuessMode } = {},
+  }: { difficulty: Difficulty; submitted?: boolean; mode?: GuessMode },
 ): GuessResult => {
   if (!guess) return [{}, {}, {}, {}, {}]
 
@@ -75,16 +77,18 @@ export const guess = (
         })
         break
       case 'adjacent':
-        // Now handle all adjacent notes
-        guess.forEach((semitone, i) => {
-          if (
-            remainingMelodyNotes[i] === semitone - 1 ||
-            remainingMelodyNotes[i] === semitone + 1
-          ) {
-            guessResult[i].status = 'adjacent'
-            remainingMelodyNotes[i] = undefined
-          }
-        })
+        if (difficulty !== 'easy') {
+          // Now handle all adjacent notes
+          guess.forEach((semitone, i) => {
+            if (
+              remainingMelodyNotes[i] === semitone - 1 ||
+              remainingMelodyNotes[i] === semitone + 1
+            ) {
+              guessResult[i].status = 'adjacent'
+              remainingMelodyNotes[i] = undefined
+            }
+          })
+        }
         break
     }
     // Now fill all other guesses with incorrect.

@@ -12,6 +12,7 @@ it('handles addNew properly', () => {
     guessDistribution: [],
   })
   stats.addNew({
+    difficulty: 'medium',
     index: 2,
     melody: [0, 1, 2, 3, 4],
     state: 'success',
@@ -26,6 +27,7 @@ it('handles addNew properly', () => {
     guessDistribution: [1],
   })
   stats.addNew({
+    difficulty: 'medium',
     index: 3,
     melody: [0, 1, 2, 3, 4],
     state: 'success',
@@ -44,6 +46,7 @@ it('handles addNew properly', () => {
     guessDistribution: [1, undefined, 1],
   })
   stats.addNew({
+    difficulty: 'medium',
     index: 4,
     melody: [0, 1, 2, 3, 4],
     state: 'success',
@@ -62,6 +65,7 @@ it('handles addNew properly', () => {
     guessDistribution: [1, undefined, 2],
   })
   stats.addNew({
+    difficulty: 'medium',
     index: 5,
     melody: [0, 1, 2, 3, 4],
     state: 'failed',
@@ -76,6 +80,7 @@ it('handles addNew properly', () => {
     guessDistribution: [2, undefined, 2],
   })
   stats.addNew({
+    difficulty: 'medium',
     index: 7,
     melody: [0, 1, 2, 3, 4],
     state: 'success',

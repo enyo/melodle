@@ -7,7 +7,10 @@
   const share = () => {
     let boxes = ''
     $board.guesses.forEach((melodyGuess) => {
-      boxes += guess($board.melody, melodyGuess.melody, { submitted: true })
+      boxes += guess($board.melody, melodyGuess.melody, {
+        difficulty: $board.difficulty,
+        submitted: true,
+      })
         .map((guess) => {
           switch (guess.status) {
             case 'correct':

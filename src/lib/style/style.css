@@ -97,3 +97,18 @@ hr {
   background: #ccc;
   margin: 3em 0;
 }
+
+.pill {
+  --color: var(--color-primary);
+  font-size: 0.875rem;
+  color: var(--color);
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid var(--color);
+  padding: 0.1em 0.5em;
+  border-radius: 1000px;
+  &.selected {
+    color: white;
+    background: var(--color);
+  }
+}

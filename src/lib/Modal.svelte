@@ -3,8 +3,6 @@
   import { fade, scale } from 'svelte/transition'
   import CloseIcon from '~icons/ion/close-circle-outline'
 
-  export let title: string = ''
-
   const dispatch = createEventDispatcher<{
     close: void
   }>()
@@ -14,7 +12,7 @@
   <div class="backdrop" on:click={() => dispatch('close')} />
   <div class="content" transition:scale={{ start: 0.8 }}>
     <header>
-      <h1>{title}</h1>
+      <h1><slot name="title" /></h1>
       <button class="close" on:click={() => dispatch('close')}
         ><CloseIcon /></button
       >
@@ -57,10 +55,14 @@
     flex-direction: column;
     gap: 24px;
 
-    & header {
+    & header,
+    & header h1 {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+    }
+    & header {
       padding-left: 12px;
     }
     & .body {

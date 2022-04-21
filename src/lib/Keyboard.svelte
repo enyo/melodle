@@ -5,6 +5,7 @@
   import { board, getCurrentGuess } from './stores/board'
   import { fade } from 'svelte/transition'
   import Playback from './Playback.svelte'
+  import { difficulty } from './stores/difficulty'
 
   const dispatch = createEventDispatcher<{
     add: number
@@ -14,18 +15,24 @@
     submit: void
   }>()
 
-  const notes = [
+  type Key = {
+    semitone: number
+    name: string
+  }
+
+  let keys: Key[]
+  $: keys = [
     { semitone: 48, name: 'C' },
-    { semitone: 49, name: 'C#' },
+    ...($difficulty !== 'easy' ? [{ semitone: 49, name: 'C#' }] : []),
     { semitone: 50, name: 'D' },
-    { semitone: 51, name: 'D#' },
+    ...($difficulty !== 'easy' ? [{ semitone: 51, name: 'D#' }] : []),
     { semitone: 52, name: 'E' },
     { semitone: 53, name: 'F' },
-    { semitone: 54, name: 'F#' },
+    ...($difficulty !== 'easy' ? [{ semitone: 54, name: 'F#' }] : []),
     { semitone: 55, name: 'G' },
-    { semitone: 56, name: 'G#' },
+    ...($difficulty !== 'easy' ? [{ semitone: 56, name: 'G#' }] : []),
     { semitone: 57, name: 'A' },
-    { semitone: 58, name: 'A#' },
+    ...($difficulty !== 'easy' ? [{ semitone: 58, name: 'A#' }] : []),
     { semitone: 59, name: 'B' },
   ]
 
@@ -39,9 +46,13 @@
       } else if (validKeys[event.key] !== undefined) {
         dispatch('add', validKeys[event.key] + 12 * 4)
       } else if (event.key == 'ArrowUp') {
-        dispatch('sharp')
+        if ($difficulty !== 'easy') {
+          dispatch('sharp')
+        }
       } else if (event.key == 'ArrowDown') {
-        dispatch('flat')
+        if ($difficulty !== 'easy') {
+          dispatch('sharp')
+        }
       } else {
         return
       }
@@ -83,13 +94,13 @@
     >
   </div>
   <nav class="keyboard">
-    {#each notes as note}
+    {#each keys as key}
       <button
-        on:click={() => dispatch('add', note.semitone)}
-        class={note.name.toLowerCase().replace('#', 'sharp')}
-        class:sharp={note.name.includes('#')}
+        on:click={() => dispatch('add', key.semitone)}
+        class={key.name.toLowerCase().replace('#', 'sharp')}
+        class:sharp={key.name.includes('#')}
       >
-        {note.name}</button
+        {key.name}</button
       >
     {/each}
   </nav>
