@@ -4,23 +4,33 @@
   import Help from './Help.svelte'
   import Modal from './Modal.svelte'
   import Stats from './Stats.svelte'
-  import { board } from './stores/board'
-  import { difficulty } from './stores/difficulty'
+  import { board, type BoardState } from './stores/board'
+  import { difficulty, type Difficulty } from './stores/difficulty'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
-
-  let showShareSheet = false
 
   const closeHelp = () => {
     showHelp = false
     localStorage.setItem('showedHelp', 'true')
   }
 
+  let previousBoardState = $board.state
+  let previousDifficulty = $board.difficulty
+  let showShareSheet = $board.state !== 'playing'
   $: {
-    if ($board.state !== 'playing') {
-      showShareSheet = true
+    if (
+      $board.state !== 'playing' &&
+      (previousBoardState === 'playing' ||
+        previousDifficulty !== $board.difficulty)
+    ) {
+      setTimeout(() => {
+        console.log('showing')
+        showShareSheet = true
+      }, 1000)
     }
+    previousBoardState = $board.state
+    previousDifficulty = $board.difficulty
   }
 </script>
 

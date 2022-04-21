@@ -12,7 +12,7 @@ type MelodyGuess = {
   submitted: boolean
   played: boolean // Whether the user has played the melody
 }
-type BoardState = 'playing' | 'success' | 'failed'
+export type BoardState = 'playing' | 'success' | 'failed'
 
 export type StoredBoard = {
   difficulty: Difficulty
