@@ -10,7 +10,7 @@
 
 <section transition:fade={{ duration: 100 }}>
   <div class="backdrop" on:click={() => dispatch('close')} />
-  <div class="content" transition:scale={{ start: 0.8 }}>
+  <div class="content" transition:scale={{ start: 0.9 }}>
     <header>
       <h1><slot name="title" /></h1>
       <button class="close" on:click={() => dispatch('close')}
