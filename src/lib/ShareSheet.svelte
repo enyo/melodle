@@ -16,6 +16,8 @@
               return '⬜'
             case 'wrong-position':
               return '🟨'
+            case 'adjacent':
+              return '🟪'
             default:
               return '??'
           }

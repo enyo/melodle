@@ -25,6 +25,7 @@
     background: white;
   }
   .wrong-position,
+  .adjacent,
   .correct,
   .incorrect {
     background: var(--color);
@@ -36,6 +37,9 @@
   }
   .correct {
     --color: var(--color-success);
+  }
+  .adjacent {
+    --color: #bf63f2;
   }
   .incorrect {
     --color: #aaa;

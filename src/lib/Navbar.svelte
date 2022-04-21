@@ -4,6 +4,7 @@
   import Modal from './Modal.svelte'
   import Stats from './Stats.svelte'
   import { board } from './stores/board'
+  import Tile from './Tile.svelte'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
@@ -39,6 +40,29 @@
       to the reference C' tone first to make sure your audio is working.
     </p>
 
+    <p>
+      After each guess, it is reveiled wether the note is correct, or one
+      semitone off. Examples:
+    </p>
+
+    <div class="examples">
+      <div class="example">
+        <div class="example-tile"><Tile semitone={2} status="correct" /></div>
+        <div class="description">The note is correct</div>
+      </div>
+      <div class="example">
+        <div class="example-tile"><Tile semitone={11} status="adjacent" /></div>
+        <div class="description">
+          The note is a semitone off.<br />(In this case, it must be A#)
+        </div>
+      </div>
+      <div class="example">
+        <div class="example-tile"><Tile semitone={6} status="incorrect" /></div>
+        <div class="description">The note is incorrect</div>
+      </div>
+    </div>
+
+    <p>A new Melodle is available each day.</p>
     <h2>Mobile users</h2>
 
     <p>
@@ -48,16 +72,9 @@
 
     <h2>Desktop users</h2>
     <p>
-      If you're using a keyboard, you can use the corresponding keys. To get a
-      sharp note, you can use the up / down arrow keys.
+      You can use the keyboard with the corresponding keys. To get a sharp note,
+      you can use the up / down arrow keys.
     </p>
-    <hr />
-    <p>
-      After each guess, the color of the tiles will change to show how close
-      your guess was to the notes.
-    </p>
-
-    <p>A new Melodle is available each day.</p>
   </Modal>
 {/if}
 
@@ -75,5 +92,15 @@
     justify-content: space-between;
     align-items: center;
     font-size: 1.25em;
+  }
+  .example {
+    display: flex;
+    gap: var(--size-spacing);
+    align-items: center;
+    margin-bottom: var(--size-spacing);
+  }
+  .example-tile {
+    width: 3em;
+    height: 3em;
   }
 </style>

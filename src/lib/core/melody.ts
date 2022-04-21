@@ -27,6 +27,9 @@ export const isCorrect = (correct: Melody, guess: Melody): boolean => {
   return true
 }
 
+const _withoutOctave = (semitone: Semitone): Semitone =>
+  semitone < 0 ? semitone + 12 : semitone % 12
+
 export type GuessMode = 'position' | 'adjacent'
 
 export const guess = (
@@ -34,14 +37,14 @@ export const guess = (
   guess: Melody,
   {
     submitted = false,
-    mode = 'position',
+    mode = 'adjacent',
   }: { submitted?: boolean; mode?: GuessMode } = {},
 ): GuessResult => {
   if (!guess) return [{}, {}, {}, {}, {}]
 
   // We don't care about the octave
-  guess = guess.map((semitone) => semitone % 12)
-  const remainingMelodyNotes = correct.map((semitone) => semitone % 12)
+  guess = guess.map(_withoutOctave)
+  const remainingMelodyNotes = correct.map(_withoutOctave)
 
   const guessResult: GuessResult = []
 
@@ -78,7 +81,7 @@ export const guess = (
             remainingMelodyNotes[i] === semitone - 1 ||
             remainingMelodyNotes[i] === semitone + 1
           ) {
-            guessResult[i].status = 'wrong-position'
+            guessResult[i].status = 'adjacent'
             remainingMelodyNotes[i] = undefined
           }
         })
