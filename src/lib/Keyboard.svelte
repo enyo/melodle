@@ -178,11 +178,8 @@
     padding: 0.5em 0;
 
     border-radius: 0 0 6px 6px;
-    &:first-child,
-    &:last-child {
-      border-radius: 6px;
-    }
     &:not(.sharp) {
+      border-radius: 6px;
       grid-row-start: 1;
       grid-row-end: 3;
       grid-column-start: calc(var(--columns-per-key) * var(--key) + 1);
