@@ -2,6 +2,8 @@
   import ShareIcon from '~icons/ion/share-social'
   import { guess } from './core/melody'
   import { board } from './stores/board'
+  import startOfTomorrow from 'date-fns/startOfTomorrow'
+  import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
   let copied = false
   const share = () => {
@@ -46,14 +48,14 @@
       copied = true
     }
   }
+
+  let nextChallenge = formatDistanceToNow(startOfTomorrow())
 </script>
 
 <div class="share">
-  {#if $board.state === 'success'}
-    Success!
-  {:else if $board.state === 'failed'}
-    Better luck next time
-  {/if}
+  <span>
+    You get a new melody tomorrow, in <strong>{nextChallenge}</strong>.
+  </span>
   {#if copied}
     <span>Copied!</span>
   {/if}
