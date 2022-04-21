@@ -50,7 +50,7 @@
     max-height: calc(var(--size-viewport-height) - 24px * 2);
     background: white;
     border-radius: 5px;
-    padding: 12px;
+    padding: 12px 12px 24px;
     display: flex;
     flex-direction: column;
     gap: 24px;

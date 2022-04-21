@@ -64,6 +64,10 @@
 
 <style lang="postcss">
   button {
+    --button-text: white;
+    --button-border: var(--color-success);
+    --button-bg: var(--color-success);
+    --button-bg-hover: var(--color-success-dark);
     & :global(svg) {
       margin-left: 0.4em;
       font-size: 1.2em;
