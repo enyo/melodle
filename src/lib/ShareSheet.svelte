@@ -26,9 +26,12 @@
           }
         })
         .join('')
+      if ($board.guesses.length === 1) {
+        boxes += '🎉'
+      }
       boxes += '\n'
     })
-    const shareText = `#Melodle ${
+    const shareText = `#Melodle ${$board.difficulty} ${
       $board.index + 1
     } 🎶\n${boxes}https://melodle.yesmeno.com`
     if (
