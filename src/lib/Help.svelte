@@ -47,6 +47,20 @@
   can use the up / down arrow keys.
 </p>
 
+<hr />
+<p>
+  Built by <a href="https://www.yesmeno.com">Matias Meno</a>. This is a variant
+  of the widely successful game
+  <a href="https://www.nytimes.com/games/wordle">Wordle</a> originally developed
+  by Josh Wardle. Built with <a href="https://kit.svelte.dev">SvelteKit</a>
+  and hosted on
+  <a href="http://github.com/enyo/melodle/">github.com/enyo/melodle</a>. For
+  issues and/or feature requests
+  <a href="https://github.com/enyo/melodle/issues">create a ticket</a>.<br />
+  I use analytics by <a href="https://www.goatcounter.com">GoatCounter</a> and there
+  is no Cookie consent box, because I don't track you.
+</p>
+
 <style lang="postcss">
   .example {
     display: flex;

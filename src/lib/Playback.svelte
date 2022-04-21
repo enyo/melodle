@@ -86,7 +86,7 @@
     text-align: center;
     margin-top: 8px;
     border-radius: 5px;
-    border: 1px solid var(--color-primary);
+    border: 2px solid var(--color-primary);
     padding: 0.5em 1em;
   }
   .play-buttons {
