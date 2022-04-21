@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
+import { expect, it } from 'vitest'
 import { stats } from './stats'
 
-const { it, expect } = import.meta.vitest
 it('handles addNew properly', () => {
   expect(get(stats)).toMatchObject({
     lastIndex: -2,

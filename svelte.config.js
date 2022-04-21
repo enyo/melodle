@@ -31,9 +31,7 @@ const config = {
       define: {
         'import.meta.vitest': 'undefined',
       },
-      test: {
-        includeSource: ['src/**/*.{js,ts}', 'src/lib/stores/**/*.{js,ts}'],
-      },
+      test: {},
     },
   },
 }
