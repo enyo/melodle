@@ -2,7 +2,7 @@
 
 Guess the melody in 6 attempts.
 
-https://melodle.yesmeno.com
+Play here: https://melodle.yesmeno.com
 
 ## Developing
 
