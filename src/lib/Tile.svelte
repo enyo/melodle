@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cubicOut } from 'svelte/easing'
+  import { cubicOut, quadOut } from 'svelte/easing'
   import type { TransitionConfig } from 'svelte/transition'
   import type { Status } from './core/melody'
   import { getNotation, type Semitone } from './core/note'
@@ -13,7 +13,7 @@
 
   function appear(
     _node: Element,
-    { duration = 900 }: { duration?: number } = {},
+    { duration = 1200 }: { duration?: number } = {},
   ): TransitionConfig {
     if (!animate) {
       return { duration: 0, css: () => '' }
@@ -27,17 +27,25 @@
     return {
       duration: totalDuration,
       css: (t) => {
-        let easedAndStaggered: number
+        let easedAndStaggeredX: number
+        let easedAndStaggeredY: number
         if (t < tStart) {
-          easedAndStaggered = 0
+          easedAndStaggeredX = 0
+          easedAndStaggeredY = 0
         } else {
-          easedAndStaggered = cubicOut(
+          easedAndStaggeredX = cubicOut(
+            !tStart ? t : (t - tStart) * (1 / (1 - tStart)),
+          )
+          easedAndStaggeredY = quadOut(
             !tStart ? t : (t - tStart) * (1 / (1 - tStart)),
           )
         }
 
+        // clip-path: circle(${easedAndStaggered * 100}%);
         return `
-          clip-path: circle(${easedAndStaggered * 100}%);
+          clip-path: ellipse(${easedAndStaggeredY * 300}% ${
+          easedAndStaggeredX * 200
+        }% at -10% 50%);
 					`
       },
     }
