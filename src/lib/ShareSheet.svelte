@@ -1,6 +1,6 @@
 <script lang="ts">
   import ShareIcon from '~icons/ion/share-social'
-  import { guess } from './melody'
+  import { guess } from './core/melody'
   import { board } from './stores/board'
 
   let copied = false

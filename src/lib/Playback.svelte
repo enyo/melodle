@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import * as Tone from 'tone'
   import PlayIcon from '~icons/ion/play'
-  import { getNotation } from './note'
+  import { getNotation } from './core/note'
   import { board } from './stores/board'
 
   let synth: Tone.Synth | undefined

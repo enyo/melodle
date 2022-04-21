@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { guess, type Melody } from './melody'
+  import { guess, type Melody } from './core/melody'
   import Tile from './Tile.svelte'
 
   export let correctMelody: Melody

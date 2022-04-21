@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Status } from './melody'
+  import type { Status } from './core/melody'
 
-  import { getNotation, type Semitone } from './note'
+  import { getNotation, type Semitone } from './core/note'
   export let semitone: Semitone | undefined
   export let status: Status = undefined
 

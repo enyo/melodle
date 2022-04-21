@@ -1,5 +1,5 @@
-import { get, writable } from 'svelte/store'
 import { getGuessCount, type StoredBoard } from '$lib/stores/board'
+import { writable } from 'svelte/store'
 
 const _key = 'stats'
 
