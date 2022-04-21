@@ -4,8 +4,8 @@
   import Help from './Help.svelte'
   import Modal from './Modal.svelte'
   import Stats from './Stats.svelte'
-  import { board, type BoardState } from './stores/board'
-  import { difficulty, type Difficulty } from './stores/difficulty'
+  import { board } from './stores/board'
+  import { difficulty } from './stores/difficulty'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')

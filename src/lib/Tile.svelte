@@ -1,8 +1,7 @@
 <script lang="ts">
-  import type { Status } from './core/melody'
-  import { fade } from 'svelte/transition'
   import { cubicOut } from 'svelte/easing'
-
+  import type { TransitionConfig } from 'svelte/transition'
+  import type { Status } from './core/melody'
   import { getNotation, type Semitone } from './core/note'
   export let semitone: Semitone | undefined
   export let status: Status = undefined
@@ -12,7 +11,10 @@
 
   $: displayNote = typeof semitone !== 'undefined' ? getNotation(semitone) : ''
 
-  function appear(node, { duration = 900 }: { duration?: number } = {}) {
+  function appear(
+    _node: Element,
+    { duration = 900 }: { duration?: number } = {},
+  ): TransitionConfig {
     if (!animate) {
       return { duration: 0, css: () => '' }
     }
@@ -24,7 +26,7 @@
     let tStart = totalStagger / totalDuration
     return {
       duration: totalDuration,
-      css: (t: number) => {
+      css: (t) => {
         let easedAndStaggered: number
         if (t < tStart) {
           easedAndStaggered = 0

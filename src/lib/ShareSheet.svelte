@@ -2,8 +2,8 @@
   import ShareIcon from '~icons/ion/share-social'
   import { guess } from './core/melody'
   import { board } from './stores/board'
-  import startOfTomorrow from 'date-fns/startOfTomorrow'
-  import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+  import startOfTomorrow from 'date-fns/startOfTomorrow/index.js'
+  import formatDistanceToNow from 'date-fns/formatDistanceToNow/index.js'
 
   let copied = false
   const share = () => {
