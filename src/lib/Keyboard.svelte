@@ -111,7 +111,7 @@
     width: 100%;
     max-width: min(40rem, 60vh);
     position: relative;
-    &.finished {
+    &.finished .keyboard {
       opacity: 0.2;
       pointer-events: none;
     }

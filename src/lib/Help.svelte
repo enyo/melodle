@@ -22,7 +22,8 @@
   <div class="example">
     <div class="example-tile"><Tile semitone={11} status="adjacent" /></div>
     <div class="description">
-      The note is a semitone off. In this case, it must be A#.
+      The note is a semitone off. In this example, the right note must be A#
+      because B is the highest note.<br />
       <strong>This is disabled in easy mode.</strong>
     </div>
   </div>

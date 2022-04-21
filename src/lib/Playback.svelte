@@ -49,16 +49,17 @@
   }
 
   let requireReference = !melodyPlayed && $board.state === 'playing'
+
+  $: disablePlay =
+    $board.state === 'playing' && (requireReference || melodyPlayed)
 </script>
 
 <section>
   <div class="play-buttons">
     <button class="reference round" on:click={playReference}>C'</button>
 
-    <button
-      class="play round"
-      disabled={requireReference || melodyPlayed}
-      on:click={play}><PlayIcon /></button
+    <button class="play round" disabled={disablePlay} on:click={play}
+      ><PlayIcon /></button
     >
   </div>
   {#if requireReference}

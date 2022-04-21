@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { getNotation } from './core/note'
+
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Navbar from './Navbar.svelte'
@@ -10,6 +12,13 @@
 
   <div class="guesses">
     <Guesses />
+    {#if $board.state === 'failed'}
+      <div class="solution">
+        <div class="notes">
+          {$board.melody.map((semitone) => getNotation(semitone)).join(' ')}
+        </div>
+      </div>
+    {/if}
   </div>
 
   <Keyboard
@@ -21,7 +30,7 @@
   />
 </div>
 
-<style>
+<style lang="postcss">
   .board {
     display: grid;
     width: 100vw;
@@ -32,7 +41,24 @@
     justify-items: center;
   }
   .guesses {
+    position: relative;
     align-self: center;
     justify-self: center;
+  }
+  .solution {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -24px;
+    display: flex;
+    justify-content: center;
+    & .notes {
+      background: var(--color-primary);
+      border-radius: 5px;
+      padding: 0.2em 0.5em;
+      font-weight: bold;
+      color: white;
+      font-size: 1.5em;
+    }
   }
 </style>

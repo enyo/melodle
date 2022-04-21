@@ -1,6 +1,6 @@
 @import 'reset.css';
 :root {
-  --color-primary: rgba(131, 58, 180, 1);
+  --color-primary: rgb(158, 14, 255);
   --color-success: #30b700;
   --size-spacing: 12px;
   --size-navbar: 30px;
