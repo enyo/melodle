@@ -1,7 +1,12 @@
 import { getNotation, type Semitone } from './note'
 
 export type Melody = Semitone[]
-export type Status = 'correct' | 'wrong-position' | 'incorrect' | undefined
+export type Status =
+  | 'correct'
+  | 'wrong-position'
+  | 'incorrect'
+  | 'adjacent'
+  | undefined
 export type GuessResult = GuessedNote[]
 export type GuessedNote = {
   semitone?: Semitone
@@ -22,10 +27,15 @@ export const isCorrect = (correct: Melody, guess: Melody): boolean => {
   return true
 }
 
+export type GuessMode = 'position' | 'adjacent'
+
 export const guess = (
   correct: Melody,
   guess: Melody,
-  { submitted = false } = {},
+  {
+    submitted = false,
+    mode = 'position',
+  }: { submitted?: boolean; mode?: GuessMode } = {},
 ): GuessResult => {
   if (!guess) return [{}, {}, {}, {}, {}]
 
@@ -47,16 +57,33 @@ export const guess = (
         remainingMelodyNotes[i] = undefined
       }
     })
-    // Now handle all wrong-position notes
-    guess.forEach((semitone, i) => {
-      if (
-        guessResult[i].status === undefined &&
-        remainingMelodyNotes.includes(semitone)
-      ) {
-        guessResult[i].status = 'wrong-position'
-        remainingMelodyNotes[remainingMelodyNotes.indexOf(semitone)] = undefined
-      }
-    })
+    switch (mode) {
+      case 'position':
+        // Now handle all wrong-position notes
+        guess.forEach((semitone, i) => {
+          if (
+            guessResult[i].status === undefined &&
+            remainingMelodyNotes.includes(semitone)
+          ) {
+            guessResult[i].status = 'wrong-position'
+            remainingMelodyNotes[remainingMelodyNotes.indexOf(semitone)] =
+              undefined
+          }
+        })
+        break
+      case 'adjacent':
+        // Now handle all adjacent notes
+        guess.forEach((semitone, i) => {
+          if (
+            remainingMelodyNotes[i] === semitone - 1 ||
+            remainingMelodyNotes[i] === semitone + 1
+          ) {
+            guessResult[i].status = 'wrong-position'
+            remainingMelodyNotes[i] = undefined
+          }
+        })
+        break
+    }
     // Now fill all other guesses with incorrect.
     guessResult
       .filter((guess) => guess.status === undefined)

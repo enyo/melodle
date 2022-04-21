@@ -1,8 +1,6 @@
-<script lang="ts" context="module">
-  export type Status = 'correct' | 'wrong-position' | 'incorrect' | undefined
-</script>
-
 <script lang="ts">
+  import type { Status } from './melody'
+
   import { getNotation, type Semitone } from './note'
   export let semitone: Semitone | undefined
   export let status: Status = undefined

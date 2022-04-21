@@ -1,8 +1,8 @@
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays/index.js'
 import { get, writable } from 'svelte/store'
-import { melodies } from '../melodies'
-import { isCorrect, type Melody } from '../melody'
-import type { Semitone } from '../note'
+import { melodies } from '$lib/melodies'
+import { isCorrect, type Melody } from '$lib/melody'
+import type { Semitone } from '$lib/note'
 import { stats } from '$lib/stores/stats'
 
 type MelodyGuess = {
