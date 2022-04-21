@@ -30,12 +30,13 @@ jobs:
         run: pnpm run test
 
       - name: Build site
+        id: build
         run: pnpm run build
 
       # This seems to be the simplest way to publish to a separate branch.
       - name: Deploy
         # Only run if merged to main.
-        if: success() && github.ref == 'refs/heads/main'
+        if: steps.build.outcome == 'success' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
