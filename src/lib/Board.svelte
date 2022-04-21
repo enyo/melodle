@@ -11,14 +11,16 @@
   <Navbar />
 
   <div class="guesses">
-    <Guesses />
-    {#if $board.state === 'failed'}
-      <div class="solution">
-        <div class="notes">
-          {$board.melody.map((semitone) => getNotation(semitone)).join(' ')}
+    {#key `${$board.index}-${$board.difficulty}`}
+      <Guesses />
+      {#if $board.state === 'failed'}
+        <div class="solution">
+          <div class="notes">
+            {$board.melody.map((semitone) => getNotation(semitone)).join(' ')}
+          </div>
         </div>
-      </div>
-    {/if}
+      {/if}
+    {/key}
   </div>
 
   <Keyboard

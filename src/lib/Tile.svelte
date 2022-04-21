@@ -1,5 +1,7 @@
 <script lang="ts">
   import type { Status } from './core/melody'
+  import { fade } from 'svelte/transition'
+  import { cubicOut } from 'svelte/easing'
 
   import { getNotation, type Semitone } from './core/note'
   export let semitone: Semitone | undefined
@@ -9,78 +11,49 @@
   export let index = 0
 
   $: displayNote = typeof semitone !== 'undefined' ? getNotation(semitone) : ''
+
+  function appear(node, { duration = 900 }: { duration?: number } = {}) {
+    if (!animate) {
+      return { duration: 0, css: () => '' }
+    }
+
+    const stagger = 200
+    const totalStagger = stagger * index
+    const totalDuration = duration + totalStagger
+
+    let tStart = totalStagger / totalDuration
+    return {
+      duration: totalDuration,
+      css: (t: number) => {
+        let easedAndStaggered: number
+        if (t < tStart) {
+          easedAndStaggered = 0
+        } else {
+          easedAndStaggered = cubicOut(
+            !tStart ? t : (t - tStart) * (1 / (1 - tStart)),
+          )
+        }
+
+        return `
+          clip-path: circle(${easedAndStaggered * 100}%);
+					`
+      },
+    }
+  }
 </script>
 
 <div class="container">
   <div class="note">{displayNote}</div>
   {#if status}
-    <div class={`note ${status} index${index}`} class:animate>
-      {displayNote}
-    </div>
+    {#key status}
+      <div class={`note ${status}`} in:appear>
+        {displayNote}
+      </div>
+    {/key}
   {/if}
 </div>
 
 <style lang="postcss">
-  @keyframes appear0 {
-    0% {
-      clip-path: circle(0%);
-    }
-    100% {
-      clip-path: circle(75%);
-    }
-  }
-  @keyframes appear1 {
-    0% {
-      clip-path: circle(0%);
-      opacity: 0;
-    }
-    10% {
-      clip-path: circle(0%);
-      opacity: 1;
-    }
-    100% {
-      clip-path: circle(75%);
-    }
-  }
-  @keyframes appear2 {
-    0% {
-      clip-path: circle(0%);
-      opacity: 0;
-    }
-    20% {
-      clip-path: circle(0%);
-      opacity: 1;
-    }
-    100% {
-      clip-path: circle(75%);
-    }
-  }
-  @keyframes appear3 {
-    0% {
-      clip-path: circle(0%);
-      opacity: 0;
-    }
-    30% {
-      clip-path: circle(0%);
-      opacity: 1;
-    }
-    100% {
-      clip-path: circle(75%);
-    }
-  }
-  @keyframes appear4 {
-    0% {
-      clip-path: circle(0%);
-      opacity: 0;
-    }
-    40% {
-      clip-path: circle(0%);
-      opacity: 1;
-    }
-    100% {
-      clip-path: circle(75%);
-    }
-  }
   .container {
     position: relative;
     font-size: clamp(1rem, 0.5rem + 2.5vw, 2rem);
@@ -103,22 +76,6 @@
     &.adjacent,
     &.correct,
     &.incorrect {
-      --time: 400ms;
-      &.animate.index0 {
-        animation: appear0 calc(var(--time)) ease-in-out;
-      }
-      &.animate.index1 {
-        animation: appear1 calc(var(--time) * 1.2) ease-in-out;
-      }
-      &.animate.index2 {
-        animation: appear2 calc(var(--time) * 1.4) ease-in-out;
-      }
-      &.animate.index3 {
-        animation: appear3 calc(var(--time) * 1.6) ease-in-out;
-      }
-      &.animate.index4 {
-        animation: appear4 calc(var(--time) * 1.8) ease-in-out;
-      }
       position: absolute;
       inset: 0;
       background: var(--color);

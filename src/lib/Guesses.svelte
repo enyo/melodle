@@ -1,6 +1,6 @@
 <script lang="ts">
   import Guess from '$lib/Guess.svelte'
-  import { board } from './stores/board'
+  import { board, getGuessCount } from './stores/board'
 </script>
 
 <div class="guesses">
@@ -10,7 +10,7 @@
       correctMelody={$board.melody}
       guessedMelody={guess?.melody}
       submitted={guess?.submitted ?? false}
-      isLast={i === $board.guesses.length - 1}
+      isLast={i === getGuessCount($board) - 1}
     />
   {/each}
 </div>
