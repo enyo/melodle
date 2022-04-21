@@ -10,6 +10,7 @@
       correctMelody={$board.melody}
       guessedMelody={guess?.melody}
       submitted={guess?.submitted ?? false}
+      isLast={i === $board.guesses.length - 1}
     />
   {/each}
 </div>

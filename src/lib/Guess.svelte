@@ -6,6 +6,7 @@
   export let correctMelody: Melody
   export let guessedMelody: Melody | undefined
   export let submitted: boolean
+  export let isLast = false
 
   $: notes = guess(correctMelody, guessedMelody, {
     difficulty: $board.difficulty,
@@ -13,6 +14,11 @@
   })
 </script>
 
-{#each notes as note}
-  <Tile semitone={note.semitone} status={note.status} />
+{#each notes as note, i}
+  <Tile
+    semitone={note.semitone}
+    status={note.status}
+    index={i}
+    animate={isLast}
+  />
 {/each}
