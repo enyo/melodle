@@ -10,7 +10,7 @@
 </p>
 
 <p>
-  After each guess, it is reveiled wether the note is correct, or one semitone
+  After a guess, it is reveiled wether each note is correct, or one semitone
   off. Examples:
 </p>
 
