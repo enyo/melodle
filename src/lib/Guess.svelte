@@ -20,5 +20,6 @@
     status={note.status}
     index={i}
     animate={isLast}
+    gameInProgress={$board.state === 'playing'}
   />
 {/each}

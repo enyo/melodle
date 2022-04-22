@@ -98,17 +98,30 @@ suite('mode=adjacent', () => {
     expect(guessResult[3].status).toBe('correct')
     expect(guessResult[4].status).toBe('correct')
   })
-  it('doesnt show adjacent notes if difficulty is easy', () => {
-    const correct = fromString('0 2 4 5 0')
-    const guessResult = guess(correct, fromString('2 4 5 4 2'), {
+  it('guesses properly on easy mode', () => {
+    const correct = fromString('0 2 4 0 0')
+    const guessResult = guess(correct, fromString('0 2 0 11 2'), {
       difficulty: 'easy',
       submitted: true,
       mode: 'adjacent',
     })
-    expect(guessResult[0].status).toBe('incorrect')
-    expect(guessResult[1].status).toBe('incorrect')
+    expect(guessResult[0].status).toBe('correct')
+    expect(guessResult[1].status).toBe('correct')
     expect(guessResult[2].status).toBe('incorrect')
     expect(guessResult[3].status).toBe('incorrect')
+    expect(guessResult[4].status).toBe('adjacent')
+  })
+  it('shows different adjacent notes if difficulty is easy', () => {
+    const correct = fromString('0 2 4 5 0')
+    const guessResult = guess(correct, fromString('2 4 5 4 4'), {
+      difficulty: 'easy',
+      submitted: true,
+      mode: 'adjacent',
+    })
+    expect(guessResult[0].status).toBe('adjacent')
+    expect(guessResult[1].status).toBe('adjacent')
+    expect(guessResult[2].status).toBe('adjacent')
+    expect(guessResult[3].status).toBe('adjacent')
     expect(guessResult[4].status).toBe('incorrect')
   })
   it('doesnt include status if guess hasnt been submitted', () => {

@@ -5,6 +5,7 @@
   import { getNotation, type Semitone } from './core/note'
   export let semitone: Semitone | undefined
   export let status: Status = undefined
+  export let gameInProgress = false
   export let animate = false
   // Used to stagger the animation
   export let index = 0
@@ -50,13 +51,21 @@
       },
     }
   }
+
+  let visibleStatus: Status | undefined
+  $: {
+    visibleStatus = status
+    if (visibleStatus === 'adjacent' && gameInProgress) {
+      visibleStatus = 'incorrect'
+    }
+  }
 </script>
 
 <div class="container">
   <div class="note">{displayNote}</div>
-  {#if status}
-    {#key status}
-      <div class={`note ${status}`} in:appear>
+  {#if visibleStatus}
+    {#key visibleStatus}
+      <div class={`note ${visibleStatus}`} in:appear>
         {displayNote}
       </div>
     {/key}
@@ -66,7 +75,7 @@
 <style lang="postcss">
   .container {
     position: relative;
-    font-size: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+    font-size: clamp(1rem, 0.5rem + 2.5vw, 1.5rem);
     aspect-ratio: 1;
     width: 100%;
     height: 100%;

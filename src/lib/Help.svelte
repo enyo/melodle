@@ -20,16 +20,15 @@
     <div class="description">The note is correct</div>
   </div>
   <div class="example">
-    <div class="example-tile"><Tile semitone={11} status="adjacent" /></div>
-    <div class="description">
-      The note is a semitone off. In this example, the right note must be A#
-      because B is the highest note.<br />
-      <strong>This is disabled in easy mode.</strong>
-    </div>
-  </div>
-  <div class="example">
     <div class="example-tile"><Tile semitone={6} status="incorrect" /></div>
     <div class="description">The note is incorrect</div>
+  </div>
+  <div class="example">
+    <div class="example-tile"><Tile semitone={11} status="adjacent" /></div>
+    <div class="description">
+      <strong>Only revealed at the end of a game!</strong>
+      Shows that you guessed the key right next to it.
+    </div>
   </div>
 </div>
 

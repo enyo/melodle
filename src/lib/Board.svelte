@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition'
   import { getNotation } from './core/note'
-
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Navbar from './Navbar.svelte'
@@ -14,9 +14,11 @@
     {#key `${$board.index}-${$board.difficulty}`}
       <Guesses />
       {#if $board.state === 'failed'}
-        <div class="solution">
+        <div class="solution" in:fade={{ duration: 500, delay: 1000 }}>
           <div class="notes">
-            {$board.melody.map((semitone) => getNotation(semitone)).join(' ')}
+            {#each $board.melody.map( (semitone) => getNotation(semitone), ) as note}
+              <span>{note}</span>
+            {/each}
           </div>
         </div>
       {/if}
@@ -49,18 +51,19 @@
   }
   .solution {
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 12px;
+    right: 12px;
     bottom: -24px;
-    display: flex;
-    justify-content: center;
     & .notes {
-      background: var(--color-primary);
+      background: rgba(0, 0, 0, 0.8);
       border-radius: 5px;
-      padding: 0.2em 0.5em;
+      padding: 0.5em 1em;
       font-weight: bold;
       color: white;
-      font-size: 1.5em;
+      font-size: 1em;
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5em;
     }
   }
 </style>

@@ -77,18 +77,23 @@ export const guess = (
         })
         break
       case 'adjacent':
-        if (difficulty !== 'easy') {
-          // Now handle all adjacent notes
-          guess.forEach((semitone, i) => {
-            if (
-              remainingMelodyNotes[i] === semitone - 1 ||
-              remainingMelodyNotes[i] === semitone + 1
-            ) {
-              guessResult[i].status = 'adjacent'
-              remainingMelodyNotes[i] = undefined
-            }
-          })
-        }
+        // Now handle all adjacent notes
+        guess.forEach((semitone, i) => {
+          const possibleSemitones: Semitone[] =
+            difficulty === 'easy'
+              ? [0, 2, 4, 5, 7, 9, 11]
+              : Array.from(Array(12).keys())
+          const possibleIndex = possibleSemitones.indexOf(semitone)
+          const below = possibleSemitones[possibleIndex - 1]
+          const above = possibleSemitones[possibleIndex + 1]
+          if (
+            (below !== undefined && below === remainingMelodyNotes[i]) ||
+            (above !== undefined && above === remainingMelodyNotes[i])
+          ) {
+            guessResult[i].status = 'adjacent'
+            remainingMelodyNotes[i] = undefined
+          }
+        })
         break
     }
     // Now fill all other guesses with incorrect.
