@@ -63,12 +63,16 @@ difficulty.subscribe((difficulty) => {
 
 export const stats = {
   subscribe: _stats.subscribe,
+  /// Only visible for testing
+  reset: (difficulty: Difficulty) => {
+    _stats.set(_default(difficulty))
+  },
   addNew: (board: StoredBoard): void => {
     _stats.update((stats) => {
-      if (stats.lastIndex === board.index - 1) {
+      if (stats.lastIndex === board.index - 1 && board.state === 'success') {
         stats.currentStreak++
       } else {
-        stats.currentStreak = 1
+        stats.currentStreak = board.state === 'success' ? 1 : 0
       }
       if (stats.currentStreak > stats.maxStreak) {
         stats.maxStreak = stats.currentStreak
