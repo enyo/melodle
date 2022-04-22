@@ -22,7 +22,7 @@ suite('mode=adjacent', () => {
     const correct = fromString('48 50 55 59 48')
 
     let guessResult = guess(correct, [48, 50, 55, 59, 48], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'adjacent',
     })
@@ -34,7 +34,7 @@ suite('mode=adjacent', () => {
     expect(guessResult[4].status).toBe('correct')
 
     guessResult = guess(correct, [49, 51, 56, 58, 49], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'adjacent',
     })
@@ -46,7 +46,7 @@ suite('mode=adjacent', () => {
     expect(guessResult[4].status).toBe('adjacent')
 
     guessResult = guess(correct, [50, 52, 57, 61, 50], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'adjacent',
     })
@@ -58,7 +58,7 @@ suite('mode=adjacent', () => {
     expect(guessResult[4].status).toBe('incorrect')
 
     guessResult = guess(correct, [48, 49, 55, 58, 50], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'adjacent',
     })
@@ -73,7 +73,7 @@ suite('mode=adjacent', () => {
     const correct = fromString('12 0 0 11 5')
 
     const guessResult = guess(correct, [0, 12, 11, 0, 6 + 12], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'adjacent',
     })
@@ -86,7 +86,7 @@ suite('mode=adjacent', () => {
   it('evaluates guesses independent of octaves', () => {
     const correct = fromString('0 12 0 12 0')
     const guessResult = guess(correct, fromString('0 12 24 36 48'), {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'adjacent',
     })
@@ -114,7 +114,7 @@ suite('mode=adjacent', () => {
   it('doesnt include status if guess hasnt been submitted', () => {
     const correct = fromString('0 12 0 12 0')
     const guessResult = guess(correct, fromString('0 12 24 36 48'), {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: false,
       mode: 'adjacent',
     })
@@ -132,7 +132,7 @@ suite('mode=positional', () => {
     const correct = fromString('48 50 55 59 48')
 
     let guessResult = guess(correct, [48, 50, 55, 59, 48], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'position',
     })
@@ -144,7 +144,7 @@ suite('mode=positional', () => {
     expect(guessResult[4].status).toBe('correct')
 
     guessResult = guess(correct, [49, 51, 56, 61, 49], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'position',
     })
@@ -156,7 +156,7 @@ suite('mode=positional', () => {
     expect(guessResult[4].status).toBe('incorrect')
 
     guessResult = guess(correct, [48, 48, 48, 51, 59], {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'position',
     })
@@ -173,7 +173,7 @@ suite('mode=positional', () => {
     // G# (8) appears twice, but the first should be incorrect, and the second
     // correct.
     const guessResult = guess(correct, fromString('8 11 10 8 0'), {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'position',
     })
@@ -186,7 +186,7 @@ suite('mode=positional', () => {
   it('evaluates guesses independent of octaves', () => {
     const correct = fromString('0 12 0 12 0')
     const guessResult = guess(correct, fromString('0 12 24 36 48'), {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: true,
       mode: 'position',
     })
@@ -201,7 +201,7 @@ suite('mode=positional', () => {
   it('doesnt include status if guess hasnt been submitted', () => {
     const correct = fromString('0 12 0 12 0')
     const guessResult = guess(correct, fromString('0 12 24 36 48'), {
-      difficulty: 'medium',
+      difficulty: 'hard',
       submitted: false,
       mode: 'position',
     })

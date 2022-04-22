@@ -1,10 +1,10 @@
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays/index.js'
-import { get, writable } from 'svelte/store'
 import { melodies as melodiesEasy } from '$lib/core/melodies_easy'
-import { melodies as melodiesMedium } from '$lib/core/melodies_medium'
+import { melodies as melodiesHard } from '$lib/core/melodies_hard'
 import { isCorrect, type Melody } from '$lib/core/melody'
 import type { Semitone } from '$lib/core/note'
 import { stats } from '$lib/stores/stats'
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays/index.js'
+import { get, writable } from 'svelte/store'
 import { difficulty, type Difficulty } from './difficulty'
 
 type MelodyGuess = {
@@ -26,7 +26,7 @@ const firstMelodle = new Date(2022, 3, 19)
 
 const _keys: { [key in Difficulty]: string } = {
   easy: 'board_easy',
-  medium: 'board',
+  hard: 'board',
 }
 
 const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
@@ -35,8 +35,8 @@ const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
     case 'easy':
       melodies = melodiesEasy
       break
-    case 'medium':
-      melodies = melodiesMedium
+    case 'hard':
+      melodies = melodiesHard
       break
   }
   const index = Math.min(
@@ -65,7 +65,11 @@ const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
         ) {
           throw 'Wrong melody'
         }
-        if (typeof parsed['difficulty'] !== 'string')
+        if (
+          typeof parsed['difficulty'] !== 'string' ||
+          // Added this because I changed from 'medium' to 'hard'.
+          parsed['difficulty'] !== difficulty
+        )
           parsed['difficulty'] = difficulty
         storedBoard = parsed
       } catch (e) {

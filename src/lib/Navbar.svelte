@@ -5,7 +5,7 @@
   import Modal from './Modal.svelte'
   import Stats from './Stats.svelte'
   import { board } from './stores/board'
-  import { difficulty } from './stores/difficulty'
+  import { difficulties, difficulty } from './stores/difficulty'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
@@ -39,18 +39,14 @@
   <div class="name">
     <strong> Melodle </strong>
     <div class="difficulties">
-      <a
-        class="pill"
-        class:selected={$difficulty === 'easy'}
-        href="/"
-        on:click|preventDefault={() => ($difficulty = 'easy')}>easy</a
-      >
-      <a
-        class="pill"
-        class:selected={$difficulty === 'medium'}
-        href="/"
-        on:click|preventDefault={() => ($difficulty = 'medium')}>medium</a
-      >
+      {#each difficulties as diff}
+        <a
+          class="pill"
+          class:selected={$difficulty === diff}
+          href="/"
+          on:click|preventDefault={() => ($difficulty = diff)}>{diff}</a
+        >
+      {/each}
     </div>
   </div>
   <a href="/" on:click|preventDefault={() => (showShareSheet = true)}

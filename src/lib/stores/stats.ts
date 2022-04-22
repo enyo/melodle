@@ -4,7 +4,7 @@ import { difficulty, type Difficulty } from './difficulty'
 
 const _keys: { [key in Difficulty]: string } = {
   easy: 'stats_easy',
-  medium: 'stats',
+  hard: 'stats',
 }
 
 type Stats = {
@@ -34,7 +34,11 @@ const _getStoredStats = (difficulty: Difficulty): Stats => {
     const stored = localStorage.getItem(_keys[difficulty])
     if (!stored) throw `No stats stored for ${difficulty}`
     const parsed = JSON.parse(stored)
-    if (typeof parsed['difficulty'] !== 'string') {
+    if (
+      typeof parsed['difficulty'] !== 'string' ||
+      // Added this because I changed from 'medium' to 'hard'.
+      parsed['difficulty'] !== difficulty
+    ) {
       parsed.difficulty = difficulty
     }
     return parsed
