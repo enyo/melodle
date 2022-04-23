@@ -10,7 +10,7 @@
 </p>
 
 <p>
-  After a guess, it is reveiled which notes are correct. When the game is over,
+  After a guess, it is revealed which notes are correct. When the game is over,
   you'll also see which notes you missed by just one key.
 </p>
 
