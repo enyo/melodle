@@ -10,7 +10,7 @@
 
   // let synth: Tone.Synth | undefined
 
-  const tempo = 100
+  const tempo = 72
 
   let melodyPlayed = false
   $: {
