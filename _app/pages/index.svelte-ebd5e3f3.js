@@ -234,7 +234,7 @@ PERFORMANCE OF THIS SOFTWARE.
       Shows that you guessed the key right next to it.`),j=te(),F=R("p"),X=J("A new Melodle is available each day."),Te=te(),be=R("h2"),ee=J("Mobile users"),le=te(),me=R("p"),z=J(`Make sure your phone is not on silent mode, otherwise you won't be able to
   hear anything.`),$e=te(),Be=R("h2"),rt=J("Desktop users"),Ue=te(),dt=R("p"),Wt=J(`You can use the keyboard with the corresponding keys. To get a sharp note, you
   can use the up / down arrow keys.`),q=te(),H=R("hr"),ge=te(),re=R("p"),ce=J("Built by "),ue=R("a"),Ge=J("Matias Meno"),at=J(`. This is a variant
-  of the widely successful game
+  of the wildly successful game
   `),ct=R("a"),Qt=J("Wordle"),Ln=J(` originally developed
   by Josh Wardle. Built with `),Lt=R("a"),or=J("SvelteKit"),ar=J(`. I
   use analytics by `),wn=R("a"),cr=J("GoatCounter"),lr=J(` and there
@@ -244,7 +244,7 @@ PERFORMANCE OF THIS SOFTWARE.
       Shows that you guessed the key right next to it.`),ur.forEach(k),ws.forEach(k),Tn.forEach(k),j=ne(W),F=P(W,"P",{});var Vi=E(F);X=K(Vi,"A new Melodle is available each day."),Vi.forEach(k),Te=ne(W),be=P(W,"H2",{});var Fi=E(be);ee=K(Fi,"Mobile users"),Fi.forEach(k),le=ne(W),me=P(W,"P",{});var qi=E(me);z=K(qi,`Make sure your phone is not on silent mode, otherwise you won't be able to
   hear anything.`),qi.forEach(k),$e=ne(W),Be=P(W,"H2",{});var Wi=E(Be);rt=K(Wi,"Desktop users"),Wi.forEach(k),Ue=ne(W),dt=P(W,"P",{});var Li=E(dt);Wt=K(Li,`You can use the keyboard with the corresponding keys. To get a sharp note, you
   can use the up / down arrow keys.`),Li.forEach(k),q=ne(W),H=P(W,"HR",{}),ge=ne(W),re=P(W,"P",{});var bt=E(re);ce=K(bt,"Built by "),ue=P(bt,"A",{href:!0});var $i=E(ue);Ge=K($i,"Matias Meno"),$i.forEach(k),at=K(bt,`. This is a variant
-  of the widely successful game
+  of the wildly successful game
   `),ct=P(bt,"A",{href:!0});var Bi=E(ct);Qt=K(Bi,"Wordle"),Bi.forEach(k),Ln=K(bt,` originally developed
   by Josh Wardle. Built with `),Lt=P(bt,"A",{href:!0});var ji=E(Lt);or=K(ji,"SvelteKit"),ji.forEach(k),ar=K(bt,`. I
   use analytics by `),wn=P(bt,"A",{href:!0});var Ui=E(wn);cr=K(Ui,"GoatCounter"),Ui.forEach(k),lr=K(bt,` and there
