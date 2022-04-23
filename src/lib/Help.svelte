@@ -49,7 +49,7 @@
 <hr />
 <p>
   Built by <a href="https://www.yesmeno.com">Matias Meno</a>. This is a variant
-  of the widely successful game
+  of the wildly successful game
   <a href="https://www.nytimes.com/games/wordle">Wordle</a> originally developed
   by Josh Wardle. Built with <a href="https://kit.svelte.dev">SvelteKit</a>. I
   use analytics by <a href="https://www.goatcounter.com">GoatCounter</a> and there
