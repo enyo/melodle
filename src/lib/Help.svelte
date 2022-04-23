@@ -10,8 +10,8 @@
 </p>
 
 <p>
-  After a guess, it is reveiled wether each note is correct, or one semitone
-  off. Examples:
+  After a guess, it is reveiled which notes are correct. When the game is over,
+  you'll also see which notes you missed by just one key.
 </p>
 
 <div class="examples">
