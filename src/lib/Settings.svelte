@@ -41,9 +41,4 @@ Choose how you want your notes to be named:
       text-align: center;
     }
   }
-  .notation {
-    display: flex;
-    gap: 12px;
-    margin-block: 12px;
-  }
 </style>
