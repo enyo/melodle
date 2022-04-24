@@ -1,10 +1,11 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
-  import { getNotation } from './core/note'
+  import { getName } from './core/note'
   import Guesses from './Guesses.svelte'
   import Keyboard from './Keyboard.svelte'
   import Navbar from './Navbar.svelte'
   import { board } from './stores/board'
+  import { settings } from './stores/settings'
 </script>
 
 <div class="board">
@@ -16,7 +17,7 @@
       {#if $board.state === 'failed'}
         <div class="solution" in:fade={{ duration: 500, delay: 1000 }}>
           <div class="notes">
-            {#each $board.melody.map( (semitone) => getNotation(semitone), ) as note}
+            {#each $board.melody.map( (semitone) => getName( semitone, { notation: $settings.notation }, ), ) as note}
               <span>{note}</span>
             {/each}
           </div>

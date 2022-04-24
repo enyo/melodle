@@ -46,6 +46,11 @@
   can use the up / down arrow keys.
 </p>
 
+<h2>Notation</h2>
+
+I try to detect the notation style based on your language preferences. You can
+change it anytime in the settings. There's also a solfège syllables notation.
+
 <hr />
 <p>
   Built by <a href="https://www.yesmeno.com">Matias Meno</a>. This is a variant

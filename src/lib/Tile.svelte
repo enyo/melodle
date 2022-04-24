@@ -2,7 +2,8 @@
   import { cubicOut, quadOut } from 'svelte/easing'
   import type { TransitionConfig } from 'svelte/transition'
   import type { Status } from './core/melody'
-  import { getNotation, type Semitone } from './core/note'
+  import { getName, type Semitone } from './core/note'
+  import { settings } from './stores/settings'
   export let semitone: Semitone | undefined
   export let status: Status = undefined
   export let gameInProgress = false
@@ -10,7 +11,10 @@
   // Used to stagger the animation
   export let index = 0
 
-  $: displayNote = typeof semitone !== 'undefined' ? getNotation(semitone) : ''
+  $: displayNote =
+    typeof semitone !== 'undefined'
+      ? getName(semitone, { notation: $settings.notation })
+      : ''
 
   function appear(
     _node: Element,

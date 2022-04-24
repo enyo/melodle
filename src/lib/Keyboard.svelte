@@ -6,6 +6,8 @@
   import { fade } from 'svelte/transition'
   import Playback from './Playback.svelte'
   import { difficulty } from './stores/difficulty'
+  import { getName } from './core/note'
+  import { settings } from './stores/settings'
 
   const dispatch = createEventDispatcher<{
     add: number
@@ -18,23 +20,37 @@
   type Key = {
     semitone: number
     name: string
+    englishName: string
   }
 
   let keys: Key[]
-  $: keys = [
-    { semitone: 48, name: 'C' },
-    ...($difficulty !== 'easy' ? [{ semitone: 49, name: 'C#' }] : []),
-    { semitone: 50, name: 'D' },
-    ...($difficulty !== 'easy' ? [{ semitone: 51, name: 'D#' }] : []),
-    { semitone: 52, name: 'E' },
-    { semitone: 53, name: 'F' },
-    ...($difficulty !== 'easy' ? [{ semitone: 54, name: 'F#' }] : []),
-    { semitone: 55, name: 'G' },
-    ...($difficulty !== 'easy' ? [{ semitone: 56, name: 'G#' }] : []),
-    { semitone: 57, name: 'A' },
-    ...($difficulty !== 'easy' ? [{ semitone: 58, name: 'A#' }] : []),
-    { semitone: 59, name: 'B' },
-  ]
+  const semitones = Array.from(Array(12).keys())
+
+  $: keys = semitones
+    .filter(
+      (semitone) =>
+        $difficulty === 'hard' || ![1, 3, 6, 8, 10].includes(semitone),
+    )
+    .map((semitone) => ({
+      semitone: 12 * 4 + semitone,
+      name: getName(semitone, { notation: $settings.notation }),
+      englishName: getName(semitone),
+    }))
+
+  // [
+  //   { semitone: 48, name: 'C' },
+  //   ...($difficulty !== 'easy' ? [{ semitone: 49, name: 'C#' }] : []),
+  //   { semitone: 50, name: 'D' },
+  //   ...($difficulty !== 'easy' ? [{ semitone: 51, name: 'D#' }] : []),
+  //   { semitone: 52, name: 'E' },
+  //   { semitone: 53, name: 'F' },
+  //   ...($difficulty !== 'easy' ? [{ semitone: 54, name: 'F#' }] : []),
+  //   { semitone: 55, name: 'G' },
+  //   ...($difficulty !== 'easy' ? [{ semitone: 56, name: 'G#' }] : []),
+  //   { semitone: 57, name: 'A' },
+  //   ...($difficulty !== 'easy' ? [{ semitone: 58, name: 'A#' }] : []),
+  //   { semitone: 59, name: 'B' },
+  // ]
 
   onMount(() => {
     const validKeys = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11, h: 11 }
@@ -97,8 +113,8 @@
     {#each keys as key}
       <button
         on:click={() => dispatch('add', key.semitone)}
-        class={key.name.toLowerCase().replace('#', 'sharp')}
-        class:sharp={key.name.includes('#')}
+        class={key.englishName.toLowerCase().replace('#', 'sharp')}
+        class:sharp={key.englishName.includes('#')}
       >
         {key.name}</button
       >

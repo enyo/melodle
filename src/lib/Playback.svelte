@@ -3,7 +3,7 @@
   import type { Sampler } from 'tone'
   import * as Tone from 'tone'
   import PlayIcon from '~icons/ion/play'
-  import { getNotation } from './core/note'
+  import { getName } from './core/note'
   import { board } from './stores/board'
 
   let sampler: Sampler
@@ -56,7 +56,7 @@
 
     $board.melody.forEach((semitone, i) => {
       sampler.triggerAttackRelease(
-        getNotation(semitone, { octave: true }),
+        getName(semitone, { octave: true }),
         '4n',
         now + time * i,
       )

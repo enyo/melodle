@@ -1,11 +1,13 @@
 <script lang="ts">
   import HelpIcon from '~icons/ion/md-help-circle-outline'
   import StatsIcon from '~icons/ion/stats-bars'
+  import SettingsIcon from '~icons/ion/md-settings'
   import Help from './Help.svelte'
   import Modal from './Modal.svelte'
   import Stats from './Stats.svelte'
   import { board } from './stores/board'
   import { difficulties, difficulty } from './stores/difficulty'
+  import Settings from './Settings.svelte'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
@@ -32,6 +34,8 @@
     previousBoardState = $board.state
     previousDifficulty = $board.difficulty
   }
+
+  let showSettings = false
 </script>
 
 <nav>
@@ -49,6 +53,9 @@
       {/each}
     </div>
   </div>
+  <a href="/" on:click|preventDefault={() => (showSettings = true)}
+    ><SettingsIcon /></a
+  >
   <a href="/" on:click|preventDefault={() => (showShareSheet = true)}
     ><StatsIcon /></a
   >
@@ -70,19 +77,28 @@
   </Modal>
 {/if}
 
+{#if showSettings}
+  <Modal on:close={() => (showSettings = false)}>
+    <div slot="title">Settings</div>
+    <Settings />
+  </Modal>
+{/if}
+
 <style lang="postcss">
   nav {
     width: 100%;
     height: var(--size-navbar);
     display: flex;
-    justify-content: space-between;
     align-items: center;
     font-size: 1.25em;
+    gap: 6px;
   }
   .name {
+    flex: 1;
     display: flex;
     gap: 12px;
     align-items: center;
+    justify-content: center;
     & .difficulties {
       display: flex;
       gap: 6px;

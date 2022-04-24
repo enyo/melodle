@@ -1,5 +1,5 @@
 import type { Difficulty } from '$lib/stores/difficulty'
-import { getNotation, type Semitone } from './note'
+import { getName, type Semitone } from './note'
 
 export type Melody = Semitone[]
 export type Status =
@@ -21,7 +21,7 @@ export const isCorrect = (correct: Melody, guess: Melody): boolean => {
   if (guess.length != 5) return false
 
   for (let i = 0; i < 5; i++) {
-    if (getNotation(guess[i]) !== getNotation(correct[i])) {
+    if (getName(guess[i]) !== getName(correct[i])) {
       return false
     }
   }
