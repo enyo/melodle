@@ -39,6 +39,9 @@
     } 🎶\n${boxes}https://melodle.yesmeno.com`
 
     sendEvent(`share-${$board.difficulty}`)
+    if ($board.state !== 'playing') {
+      sendEvent(`share-${$board.state}`)
+    }
     if (
       typeof navigator.share !== 'undefined' &&
       navigator.canShare({ text: shareText })
