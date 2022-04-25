@@ -4,6 +4,7 @@
   import { board } from './stores/board'
   import startOfTomorrow from 'date-fns/startOfTomorrow/index.js'
   import formatDistanceToNow from 'date-fns/formatDistanceToNow/index.js'
+  import { sendEvent } from './core/analytics'
 
   let copied = false
   const share = () => {
@@ -36,6 +37,8 @@
     const shareText = `#Melodle ${$board.difficulty} ${
       $board.index + 1
     } 🎶\n${boxes}https://melodle.yesmeno.com`
+
+    sendEvent(`share-${$board.difficulty}`)
     if (
       typeof navigator.share !== 'undefined' &&
       navigator.canShare({ text: shareText })

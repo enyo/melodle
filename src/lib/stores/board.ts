@@ -1,3 +1,4 @@
+import { sendEvent } from '$lib/core/analytics'
 import { melodies as melodiesEasy } from '$lib/core/melodies_easy'
 import { melodies as melodiesHard } from '$lib/core/melodies_hard'
 import { isCorrect, type Melody } from '$lib/core/melody'
@@ -127,8 +128,10 @@ const updateBoardState = () => {
       .filter((guess) => guess.submitted)
       .find((guess) => isCorrect(board.melody, guess.melody))
   ) {
+    sendEvent(`success-${board.difficulty}`)
     board.state = 'success'
   } else if (board.guesses.filter((guess) => guess.submitted).length === 6) {
+    sendEvent(`failed-${board.difficulty}`)
     board.state = 'failed'
   } else {
     board.state = 'playing'

@@ -27,7 +27,7 @@
       },
       baseUrl: 'https://tonejs.github.io/audio/salamander/',
       onload: () => {
-        console.log('loaded')
+        console.log('Loaded samples')
         Tone.Transport.bpm.setValueAtTime(tempo, Tone.now())
       },
     }).toDestination()

@@ -27,7 +27,6 @@
         previousDifficulty !== $board.difficulty)
     ) {
       setTimeout(() => {
-        console.log('showing')
         showShareSheet = true
       }, 1000)
     }

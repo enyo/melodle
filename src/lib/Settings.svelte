@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getName } from './core/note'
+  import { sendEvent } from './core/analytics'
   import { notations, settings } from './stores/settings'
 </script>
 
@@ -10,7 +11,10 @@ Choose how you want your notes to be named:
     <button
       class="pill"
       class:selected={$settings.notation === notation}
-      on:click|preventDefault={() => settings.setNotation(notation)}
+      on:click|preventDefault={() => {
+        sendEvent(notation)
+        settings.setNotation(notation)
+      }}
     >
       {notation}
     </button>
