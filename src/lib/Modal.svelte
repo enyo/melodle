@@ -48,7 +48,8 @@
     width: 500px;
     max-width: calc(100vw - 24px * 2);
     max-height: calc(var(--size-viewport-height) - 24px * 2);
-    background: white;
+    background: var(--color-bg-dull);
+    /* background: var(--color-bg); */
     border-radius: 5px;
     padding: 12px 12px 24px;
     display: flex;

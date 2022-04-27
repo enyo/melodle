@@ -94,7 +94,8 @@
     margin: 0;
     font-weight: bold;
     border-radius: 2px;
-    background: white;
+    background: var(--color-bg);
+    color: var(--color-text);
     &.wrong-position,
     &.adjacent,
     &.correct,

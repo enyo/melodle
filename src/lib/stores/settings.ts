@@ -5,15 +5,22 @@ const _key = 'settings'
 export const notations = ['english', 'romance', 'german', 'solfege'] as const
 export type Notation = typeof notations[number]
 
+const brightness = ['light', 'dark', 'system'] as const
+type Brightness = typeof brightness[number]
+
 const _isNotation = (notation: unknown): notation is Notation =>
   notations.includes(notation as Notation)
 
 type Settings = {
   notation: Notation
+  brightness: Brightness
 }
 
 const _getStoredSettings = (): Settings => {
-  const defaultSettings: Settings = { notation: 'english' }
+  const defaultSettings: Settings = {
+    notation: 'english',
+    brightness: 'system',
+  }
   if (typeof localStorage === 'undefined') return defaultSettings
   if (typeof navigator !== 'undefined') {
     try {
@@ -40,7 +47,7 @@ const _getStoredSettings = (): Settings => {
     const settings = JSON.parse(stored)
     if (!_isNotation(settings['notation']))
       settings['notation'] = defaultSettings.notation
-
+    if (!settings.brightness) settings.brightness = defaultSettings.brightness
     return settings
   } catch (e) {
     console.log(`Could not load settings: ${e}`)
@@ -60,6 +67,14 @@ export const settings = {
   setNotation: (notation: Notation) =>
     _settings.update((settings) => {
       settings.notation = notation
+      return settings
+    }),
+  switchBrightness: () =>
+    _settings.update((settings) => {
+      settings.brightness =
+        brightness[
+          (brightness.indexOf(settings.brightness) + 1) % brightness.length
+        ]
       return settings
     }),
 }

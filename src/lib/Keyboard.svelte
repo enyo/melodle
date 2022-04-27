@@ -194,6 +194,7 @@
     padding: 0.5em 0;
 
     border-radius: 0 0 6px 6px;
+
     &:not(.sharp) {
       border-radius: 6px;
       grid-row-start: 1;
@@ -201,6 +202,7 @@
       grid-column-start: calc(var(--columns-per-key) * var(--key) + 1);
       grid-column-end: calc(var(--columns-per-key) * (var(--key) + 1) + 1);
       background: white;
+      color: black;
       &:hover {
         background: #ccc;
       }

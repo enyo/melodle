@@ -1,6 +1,14 @@
 @import 'reset.css';
 :root {
-  --color-primary: rgb(158, 14, 255);
+  --color-bg: white;
+  --color-bg-alpha2: #fff3;
+  --color-bg-alpha8: #fffb;
+  --color-bg-dull: #eee;
+  --color-text: black;
+  --color-text-alpha2: #0002;
+  --color-text-alpha8: #000b;
+
+  --color-primary: hsl(276, 100%, 52.7%);
   --color-success: #30b700;
   --color-success-dark: #20a700;
   --size-spacing: 12px;
@@ -22,11 +30,35 @@
   }
 }
 
+html.dark {
+  --color-bg: #222;
+  --color-bg-dull: #444;
+  --color-text: white;
+  --color-primary: hsl(276, 100%, 90%);
+  --color-bg-alpha2: #2222;
+  --color-bg-alpha8: #222b;
+  --color-text-alpha2: #fff3;
+  --color-text-alpha8: #fffb;
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    --color-bg: #222;
+    --color-bg-dull: #444;
+    --color-text: white;
+    --color-primary: hsl(276, 100%, 90%);
+    --color-bg-alpha2: #2222;
+    --color-bg-alpha8: #222b;
+    --color-text-alpha2: #fff3;
+    --color-text-alpha8: #fffb;
+  }
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  background: white;
+  background: var(--color-bg);
+  color: var(--color-text);
   overflow: hidden;
 }
 body {
@@ -43,14 +75,14 @@ a {
   color: var(--color-primary);
 }
 button {
-  --button-text: black;
-  --button-border: black;
-  --button-bg: white;
-  --button-bg-hover: #eee;
+  --button-text: var(--color-text);
+  --button-border: var(--color-text);
+  --button-bg: var(--color-bg);
+  --button-bg-hover: var(--color-text-alpha2);
 
-  --button-disabled-text: #888;
-  --button-disabled-border: #aaa;
-  --button-disabled-bg: #eee;
+  --button-disabled-text: var(--color-text-alpha2);
+  --button-disabled-border: var(--color-text-alpha2);
+  --button-disabled-bg: var(--color-text-alpha2);
 
   color: var(--button-text);
   margin: 0;
@@ -109,7 +141,7 @@ hr {
   padding: 0.1em 0.5em;
   border-radius: 1000px;
   &.selected {
-    color: white;
+    color: var(--color-bg);
     background: var(--color);
   }
 }

@@ -1,5 +1,8 @@
 <script lang="ts">
   import HelpIcon from '~icons/ion/md-help-circle-outline'
+  import DarkIcon from '~icons/ion/ios-moon'
+  import LightIcon from '~icons/ion/ios-sunny'
+  import SystemIcon from '~icons/ion/iphone'
   import StatsIcon from '~icons/ion/stats-bars'
   import SettingsIcon from '~icons/ion/md-settings'
   import Help from './Help.svelte'
@@ -8,6 +11,7 @@
   import { board } from './stores/board'
   import { difficulties, difficulty } from './stores/difficulty'
   import Settings from './Settings.svelte'
+  import { settings } from './stores/settings'
 
   let showHelp =
     typeof localStorage !== 'undefined' && !localStorage.getItem('showedHelp')
@@ -39,6 +43,19 @@
 
 <nav>
   <a href="/" on:click|preventDefault={() => (showHelp = true)}><HelpIcon /></a>
+  <a
+    href="/"
+    on:click|preventDefault={() => settings.switchBrightness()}
+    title={`Brighness ${$settings.brightness}`}
+  >
+    {#if $settings.brightness === 'light'}
+      <LightIcon />
+    {:else if $settings.brightness === 'dark'}
+      <DarkIcon />
+    {:else}
+      <SystemIcon />
+    {/if}
+  </a>
   <div class="name">
     <strong> Melodle </strong>
     <div class="difficulties">

@@ -30,7 +30,6 @@
     grid-template-rows: repeat(6, minmax(0, 1fr));
     justify-content: center;
     align-content: center;
-    background: var(--color-primary);
-    background: #ddd;
+    background: var(--color-bg-dull);
   }
 </style>

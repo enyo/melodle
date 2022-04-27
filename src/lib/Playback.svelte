@@ -92,7 +92,8 @@
   small {
     z-index: 2000;
     position: absolute;
-    background: white;
+    background: var(--color-bg);
+    color: var(--color-text);
     top: 44px;
     width: 18em;
     left: 50%;
@@ -103,6 +104,7 @@
     border-radius: 5px;
     border: 2px solid var(--color-primary);
     padding: 0.5em 1em;
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
   }
   .play-buttons {
     display: flex;
@@ -112,13 +114,12 @@
   }
   button {
     &.reference {
-      opacity: 0.7;
       font-weight: bold;
     }
     &.play {
-      --button-text: white;
-      --button-bg: black;
-      --button-border: black;
+      --button-text: var(--color-bg);
+      --button-bg: var(--color-text);
+      --button-border: var(--color-text);
       --button-bg-hover: #333;
 
       --button-disabled-text: #fff;
