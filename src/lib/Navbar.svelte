@@ -87,7 +87,8 @@
 {#if showShareSheet}
   <Modal on:close={() => (showShareSheet = false)}>
     <svelte:fragment slot="title"
-      >Statistics <span class="pill">{$difficulty}</span></svelte:fragment
+      >Statistics <span class="pill selected">{$difficulty}</span
+      ></svelte:fragment
     >
     <Stats />
   </Modal>
