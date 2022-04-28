@@ -2,6 +2,16 @@
   import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores/board'
   import { stats } from './stores/stats'
+
+  let maxGuess: number
+  $: {
+    maxGuess = 0
+    $stats.guessDistribution.forEach((count) => {
+      if (count > maxGuess) {
+        maxGuess = count
+      }
+    })
+  }
 </script>
 
 <div class="stats">
@@ -22,6 +32,19 @@
     <div class="name">Max Streak</div>
   </div>
 </div>
+{#if maxGuess > 0}
+  <div class="distribution">
+    {#each Array(6) as _, i}
+      {@const guessCount = $stats.guessDistribution[i] ?? 0}
+      <div class="bar">
+        <span class="count">{i + 1}</span>
+        <div class="bar-inner" style={`--bar-ratio: ${guessCount / maxGuess}`}>
+          {guessCount}
+        </div>
+      </div>
+    {/each}
+  </div>
+{/if}
 
 {#if $board.state !== 'playing'}
   <hr />
@@ -38,6 +61,32 @@
     & .number {
       font-weight: bold;
       font-size: 2em;
+    }
+  }
+  .distribution {
+    margin-top: 24px;
+    /* height: 80px; */
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 6px;
+    & .bar {
+      width: 100%;
+      display: flex;
+      /* justify-content: flex-end; */
+      align-items: center;
+      gap: 12px;
+      & .bar-inner {
+        width: calc(1.5em + (100% - 2em) * var(--bar-ratio));
+        height: 100%;
+        background: var(--color-text-alpha2);
+        border-radius: 3px;
+        font-size: 0.875em;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 0.5em;
+        font-weight: bold;
+      }
     }
   }
 </style>

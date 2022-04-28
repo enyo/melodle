@@ -60,7 +60,7 @@
 
 <div class="share">
   <span>
-    You get a new melody tomorrow, in <strong>{nextChallenge}</strong>.
+    New melody in <strong>{nextChallenge}</strong>.
   </span>
   {#if copied}
     <span>Copied!</span>
@@ -84,5 +84,8 @@
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    & :global(svg) {
+      max-width: none;
+    }
   }
 </style>
