@@ -2,17 +2,20 @@
   import Tile from './Tile.svelte'
 </script>
 
-<p>Guess the melody in 6 tries.</p>
+<p>Every day there is a new melody (one for easy, one for hard mode).</p>
+
+<p>The melody is the same for all users.</p>
+
+<p>You have to guess the melody in 6 tries.</p>
 
 <p>
-  Before each guess, you can play the melody <strong>once</strong>. Listen to
-  the reference C' tone first to make sure your audio is working.
+  Before <strong>each</strong> guess, you can play the melody
+  <strong>once</strong>.
 </p>
 
-<p>
-  After a guess, it is revealed which notes are correct. When the game is over,
-  you'll also see which notes you missed by just one key.
-</p>
+<p>You can listen to the reference C' tone as many times as you want.</p>
+
+<p>After each guess, it is revealed which notes are correct.</p>
 
 <div class="examples">
   <div class="example">
@@ -23,33 +26,33 @@
     <div class="example-tile"><Tile semitone={6} status="incorrect" /></div>
     <div class="description">The note is incorrect</div>
   </div>
+</div>
+<p>
+  When the <strong>game is over</strong>, you'll also see which notes you missed
+  by just one key.
+</p>
+<div class="examples">
   <div class="example">
-    <div class="example-tile"><Tile semitone={11} status="adjacent" /></div>
-    <div class="description">
-      <strong>Only revealed at the end of a game!</strong>
-      Shows that you guessed the key right next to it.
-    </div>
+    <div class="example-tile"><Tile semitone={9} status="adjacent" /></div>
+    <div class="description">You missed by one key.</div>
   </div>
 </div>
 
-<p>A new Melodle is available each day.</p>
-<h2>Mobile users</h2>
+<p>The keys on the piano don't make any sound.</p>
 
-<p>
-  Make sure your phone is not on silent mode, otherwise you won't be able to
-  hear anything.
-</p>
+<p>Easy mode doesn't have any sharp keys.</p>
 
 <h2>Desktop users</h2>
 <p>
-  You can use the keyboard with the corresponding keys. To get a sharp note, you
-  can use the up / down arrow keys.
+  You can use the keyboard with the corresponding keys. To get a sharp note (on
+  hard mode), you can use the up / down arrow keys.
 </p>
 
 <h2>Notation</h2>
 
 I try to detect the notation style based on your language preferences. You can
-change it anytime in the settings. There's also a solfège syllables notation.
+change it anytime in the settings. There's also a solfège syllables notation
+(Do, Di, Re, Ri, etc...).
 
 <hr />
 <p>
