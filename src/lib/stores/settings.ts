@@ -6,7 +6,7 @@ export const notations = ['english', 'romance', 'german', 'solfege'] as const
 export type Notation = typeof notations[number]
 
 const brightness = ['light', 'dark', 'system'] as const
-type Brightness = typeof brightness[number]
+export type Brightness = typeof brightness[number]
 
 const _isNotation = (notation: unknown): notation is Notation =>
   notations.includes(notation as Notation)
