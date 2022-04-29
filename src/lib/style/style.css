@@ -27,7 +27,6 @@
   );
 }
 @media all and (display-mode: standalone) {
-  /* Here goes the CSS rules that will only apply if app is running standalone */
   :root {
     --size-padding-bottom: calc(3 * var(--size-spacing));
   }

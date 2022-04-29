@@ -51,6 +51,21 @@
   <ShareSheet />
 {/if}
 
+<div class="did-you-know">
+  <strong>Did you know:</strong> you can add Melodle to your home screen on your
+  phone or tablet and it will behave like an app! How to:
+  <a
+    target="_blank"
+    href="https://www.howtogeek.com/667910/how-to-add-a-website-to-your-iphone-or-ipad-home-screen/"
+    >iOS</a
+  >,
+  <a
+    target="_blank"
+    href="https://www.howtogeek.com/667938/how-to-add-a-website-to-your-android-home-screen/"
+    >Android</a
+  >
+</div>
+
 <style lang="postcss">
   .stats {
     display: grid;
@@ -88,5 +103,9 @@
         font-weight: bold;
       }
     }
+  }
+  .did-you-know {
+    margin-top: calc(4 * var(--size-spacing));
+    font-size: 0.875em;
   }
 </style>
