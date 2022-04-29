@@ -1,0 +1,154 @@
+@import 'reset.css';
+:root {
+  --color-bg: white;
+  --color-bg-alpha2: #fff3;
+  --color-bg-alpha8: #fffb;
+  --color-bg-dull: #eee;
+  --color-text: black;
+  --color-text-alpha2: #0002;
+  --color-text-alpha8: #000b;
+
+  --color-primary: hsl(276, 100%, 52.7%);
+  --color-success: #30b700;
+  --color-success-dark: #20a700;
+  --size-spacing: 12px;
+  --size-navbar: 30px;
+  --size-keyboard-height: 120px;
+  --size-actions-height: 48px;
+  --size-viewport-height: 90vh;
+  --size-padding-bottom: var(--size-spacing);
+  --size-board-height: calc(
+    var(--size-viewport-height) -
+      (
+        9 * var(--size-spacing) + var(--size-keyboard-height) +
+          var(--size-actions-height) + var(--size-navbar) +
+          var(--size-padding-bottom)
+      )
+  );
+}
+@media all and (display-mode: standalone) {
+  :root {
+    --size-padding-bottom: calc(3 * var(--size-spacing));
+  }
+}
+@supports (height: 100svh) {
+  :root {
+    --size-viewport-height: 100svh;
+  }
+}
+
+html.dark {
+  --color-bg: #222;
+  --color-bg-dull: #444;
+  --color-text: white;
+  --color-primary: hsl(276, 100%, 90%);
+  --color-bg-alpha2: #2222;
+  --color-bg-alpha8: #222b;
+  --color-text-alpha2: #fff3;
+  --color-text-alpha8: #fffb;
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    --color-bg: #222;
+    --color-bg-dull: #444;
+    --color-text: white;
+    --color-primary: hsl(276, 100%, 90%);
+    --color-bg-alpha2: #2222;
+    --color-bg-alpha8: #222b;
+    --color-text-alpha2: #fff3;
+    --color-text-alpha8: #fffb;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow: hidden;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--color-primary);
+}
+button {
+  --button-text: var(--color-text);
+  --button-border: var(--color-text);
+  --button-bg: var(--color-bg);
+  --button-bg-hover: var(--color-text-alpha2);
+
+  --button-disabled-text: var(--color-text-alpha2);
+  --button-disabled-border: var(--color-text-alpha2);
+  --button-disabled-bg: var(--color-text-alpha2);
+
+  color: var(--button-text);
+  margin: 0;
+  border: 2px solid var(--button-border);
+  border-radius: 3px;
+  background: var(--button-bg);
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  &[disabled] {
+    color: var(--button-disabled-text);
+    border-color: var(--button-disabled-border);
+    background: var(--button-disabled-bg);
+    cursor: not-allowed;
+    &:hover {
+      background: var(--button-disabled-bg);
+    }
+  }
+  &:hover {
+    background: var(--button-bg-hover);
+  }
+  &.round {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 1000px;
+    justify-content: center;
+  }
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.2em;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: #ccc;
+  margin: 2em 0;
+}
+
+.pill {
+  --color: var(--color-primary);
+  font-size: 0.875rem;
+  color: var(--color);
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid var(--color);
+  padding: 0.1em 0.5em;
+  border-radius: 1000px;
+  &.selected {
+    color: var(--color-bg);
+    background: var(--color);
+  }
+}

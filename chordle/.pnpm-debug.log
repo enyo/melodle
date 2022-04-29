@@ -1,0 +1,23 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/Users/mmo/Developer/melodle"
+  },
+  "1 error pnpm": {
+    "code": "ELIFECYCLE",
+    "errno": "ENOENT",
+    "syscall": "spawn",
+    "file": "sh",
+    "pkgid": "chordle@0.0.1",
+    "stage": "dev",
+    "script": "svelte-kit dev \"--host\"",
+    "pkgname": "chordle",
+    "err": {
+      "name": "pnpm",
+      "message": "chordle@0.0.1 dev: `svelte-kit dev \"--host\"`\nspawn ENOENT",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: chordle@0.0.1 dev: `svelte-kit dev \"--host\"`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/Users/mmo/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.32.7/node_modules/pnpm/dist/pnpm.cjs:92292:22)\n    at ChildProcess.emit (node:events:527:28)\n    at maybeClose (node:internal/child_process:1090:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:302:5)"
+    }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
+}
