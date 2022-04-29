@@ -40,7 +40,7 @@
     display: grid;
     width: 100vw;
     height: var(--size-viewport-height);
-    padding: var(--size-spacing);
+    padding: var(--size-spacing) var(--size-spacing) var(--size-padding-bottom);
     gap: calc(var(--size-spacing) * 3);
     grid-template-rows: auto var(--size-board-height) auto;
     justify-items: center;

@@ -16,13 +16,21 @@
   --size-keyboard-height: 120px;
   --size-actions-height: 48px;
   --size-viewport-height: 90vh;
+  --size-padding-bottom: var(--size-spacing);
   --size-board-height: calc(
     var(--size-viewport-height) -
       (
-        10 * var(--size-spacing) + var(--size-keyboard-height) +
-          var(--size-actions-height) + var(--size-navbar)
+        9 * var(--size-spacing) + var(--size-keyboard-height) +
+          var(--size-actions-height) + var(--size-navbar) +
+          var(--size-padding-bottom)
       )
   );
+}
+@media all and (display-mode: standalone) {
+  /* Here goes the CSS rules that will only apply if app is running standalone */
+  :root {
+    --size-padding-bottom: calc(3 * var(--size-spacing));
+  }
 }
 @supports (height: 100svh) {
   :root {
