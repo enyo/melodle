@@ -40,10 +40,11 @@ const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
       melodies = melodiesHard
       break
   }
-  const index = Math.min(
-    melodies.length,
-    Math.max(0, differenceInCalendarDays(new Date(), firstMelodle)),
-  )
+  // Determine todays melody and repeate after 1000 days.
+  const index =
+    Math.max(0, differenceInCalendarDays(new Date(), firstMelodle)) %
+    melodies.length
+
   const melody = melodies[index].map((note) => note + 12 * 4)
 
   let storedBoard: StoredBoard
