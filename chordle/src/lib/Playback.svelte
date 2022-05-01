@@ -50,20 +50,21 @@
       window.alert('Audio not loaded yet')
       return
     }
-    board.melodyPlayed()
+    // board.melodyPlayed()
     const now = Tone.now()
     const time = Tone.Time('8n').toSeconds()
 
     $board.melody.forEach((semitone, i) => {
       sampler.triggerAttackRelease(
         getName(semitone, { octave: true }),
-        '4n',
-        now + time * i,
+        '1n',
+        now + 0.1 * i,
       )
     })
   }
 
-  let requireReference = !melodyPlayed && $board.state === 'playing'
+  // let requireReference = !melodyPlayed && $board.state === 'playing'
+  let requireReference = false
 
   $: disablePlay =
     $board.state === 'playing' && (requireReference || melodyPlayed)

@@ -18,9 +18,9 @@ export const fromString = (melody: string): Melody =>
   melody.split(' ').map((note) => parseInt(note, 10))
 
 export const isCorrect = (correct: Melody, guess: Melody): boolean => {
-  if (guess.length != 5) return false
+  if (guess.length != correct.length) return false
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < correct.length; i++) {
     if (getName(guess[i]) !== getName(correct[i])) {
       return false
     }
@@ -42,7 +42,7 @@ export const guess = (
     mode = 'adjacent',
   }: { difficulty: Difficulty; submitted?: boolean; mode?: GuessMode },
 ): GuessResult => {
-  if (!guess) return [{}, {}, {}, {}, {}]
+  if (!guess) return correct.map(() => ({}))
 
   // We don't care about the octave
   guess = guess.map(_withoutOctave)
@@ -50,7 +50,7 @@ export const guess = (
 
   const guessResult: GuessResult = []
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < correct.length; i++) {
     guessResult[i] = guess[i] !== undefined ? { semitone: guess[i] } : {}
   }
 

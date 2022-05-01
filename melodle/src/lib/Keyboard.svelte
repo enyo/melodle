@@ -37,21 +37,6 @@
       englishName: getName(semitone),
     }))
 
-  // [
-  //   { semitone: 48, name: 'C' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 49, name: 'C#' }] : []),
-  //   { semitone: 50, name: 'D' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 51, name: 'D#' }] : []),
-  //   { semitone: 52, name: 'E' },
-  //   { semitone: 53, name: 'F' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 54, name: 'F#' }] : []),
-  //   { semitone: 55, name: 'G' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 56, name: 'G#' }] : []),
-  //   { semitone: 57, name: 'A' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 58, name: 'A#' }] : []),
-  //   { semitone: 59, name: 'B' },
-  // ]
-
   onMount(() => {
     const validKeys = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11, h: 11 }
     const keyListener = (event: KeyboardEvent) => {

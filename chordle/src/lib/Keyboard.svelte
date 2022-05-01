@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte'
   import DeleteIcon from '~icons/ion/backspace-outline'
   import SubmitIcon from '~icons/ion/checkmark'
-  import { board, getCurrentGuess } from './stores/board'
+  import { board, getCurrentGuess, getGuessCount } from './stores/board'
   import { fade } from 'svelte/transition'
   import Playback from './Playback.svelte'
   import { difficulty } from './stores/difficulty'
@@ -27,30 +27,15 @@
   const semitones = Array.from(Array(12).keys())
 
   $: keys = semitones
-    .filter(
-      (semitone) =>
-        $difficulty === 'hard' || ![1, 3, 6, 8, 10].includes(semitone),
-    )
+    // .filter(
+    //   (semitone) =>
+    //     $difficulty === 'hard' || ![1, 3, 6, 8, 10].includes(semitone),
+    // )
     .map((semitone) => ({
       semitone: 12 * 4 + semitone,
       name: getName(semitone, { notation: $settings.notation }),
       englishName: getName(semitone),
     }))
-
-  // [
-  //   { semitone: 48, name: 'C' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 49, name: 'C#' }] : []),
-  //   { semitone: 50, name: 'D' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 51, name: 'D#' }] : []),
-  //   { semitone: 52, name: 'E' },
-  //   { semitone: 53, name: 'F' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 54, name: 'F#' }] : []),
-  //   { semitone: 55, name: 'G' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 56, name: 'G#' }] : []),
-  //   { semitone: 57, name: 'A' },
-  //   ...($difficulty !== 'easy' ? [{ semitone: 58, name: 'A#' }] : []),
-  //   { semitone: 59, name: 'B' },
-  // ]
 
   onMount(() => {
     const validKeys = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11, h: 11 }
@@ -86,10 +71,12 @@
     showSubmit =
       currentGuess &&
       !currentGuess.submitted &&
-      currentGuess.melody.length === 5
+      currentGuess.melody.length === $board.melody.length
     showDelete =
       currentGuess && !currentGuess.submitted && currentGuess.melody.length > 0
   }
+
+  $: currentGuess = getCurrentGuess($board)
 </script>
 
 <div class="container" class:finished={$board.state !== 'playing'}>
@@ -109,17 +96,61 @@
       on:click={() => dispatch('submit')}><SubmitIcon /></button
     >
   </div>
-  <nav class="keyboard">
-    {#each keys as key}
-      <button
-        on:click={() => dispatch('add', key.semitone)}
-        class={key.englishName.toLowerCase().replace('#', 'sharp')}
-        class:sharp={key.englishName.includes('#')}
+  {#if !showSubmit && currentGuess}
+    {#if currentGuess.melody.length === 0}
+      <nav class="keyboard">
+        {#each keys as key}
+          <button
+            on:click={() => dispatch('add', key.semitone)}
+            class={key.englishName.toLowerCase().replace('#', 'sharp')}
+            class:sharp={key.englishName.includes('#')}
+          >
+            {key.name}</button
+          >
+        {/each}
+      </nav>
+    {:else if currentGuess.melody.length === 1}
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 3)}
+        >Minor</button
       >
-        {key.name}</button
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 4)}
+        >Major</button
       >
-    {/each}
-  </nav>
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 5)}
+        >Sus4</button
+      >
+    {:else if currentGuess.melody.length === 2}
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 6)}
+        >Diminished 5th</button
+      >
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 7)}
+        >5th</button
+      >
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 8)}
+        >Augmented 5th</button
+      >
+    {:else if currentGuess.melody.length === 3}
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 9)}
+        >6th</button
+      >
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 10)}
+        >Min7</button
+      >
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 11)}
+        >Maj7</button
+      >
+    {:else if currentGuess.melody.length === 4}
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 13)}
+        >b9</button
+      >
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 14)}
+        >9</button
+      >
+      <button on:click={() => dispatch('add', currentGuess.melody[0] + 15)}
+        >#9</button
+      >
+    {/if}
+  {/if}
 </div>
 
 <style lang="postcss">

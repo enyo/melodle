@@ -1,5 +1,6 @@
 import { sendEvent } from '$lib/core/analytics'
 import { melodies as melodiesEasy } from '$lib/core/melodies_easy'
+import { melodies as melodiesMedium } from '$lib/core/melodies_medium'
 import { melodies as melodiesHard } from '$lib/core/melodies_hard'
 import { isCorrect, type Melody } from '$lib/core/melody'
 import type { Semitone } from '$lib/core/note'
@@ -23,11 +24,12 @@ export type StoredBoard = {
   state: BoardState
 }
 
-const firstMelodle = new Date(2022, 3, 19)
+const firstMelodle = new Date(2022, 3, 29)
 
 const _keys: { [key in Difficulty]: string } = {
   easy: 'board_easy',
-  hard: 'board',
+  medium: 'board_medium',
+  hard: 'board_hard',
 }
 
 const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
@@ -35,6 +37,9 @@ const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
   switch (difficulty) {
     case 'easy':
       melodies = melodiesEasy
+      break
+    case 'medium':
+      melodies = melodiesMedium
       break
     case 'hard':
       melodies = melodiesHard
@@ -177,7 +182,10 @@ export const board = {
   submit: () => {
     const currentGuess = getCurrentGuess()
 
-    if (!currentGuess || currentGuess.melody.length < 5) {
+    if (
+      !currentGuess ||
+      currentGuess.melody.length < get(_board).melody.length
+    ) {
       return
     }
     currentGuess.submitted = true

@@ -4,7 +4,8 @@ import { difficulty, type Difficulty } from './difficulty'
 
 const _keys: { [key in Difficulty]: string } = {
   easy: 'stats_easy',
-  hard: 'stats',
+  medium: 'stats_medium',
+  hard: 'stats_heard',
 }
 
 type Stats = {
@@ -40,6 +41,9 @@ const _getStoredStats = (difficulty: Difficulty): Stats => {
       parsed['difficulty'] !== difficulty
     ) {
       parsed.difficulty = difficulty
+    }
+    if (!parsed['guessDistribution']) {
+      parsed['guessDistribution'] = []
     }
     return parsed
   } catch (e) {

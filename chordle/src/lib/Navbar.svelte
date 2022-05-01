@@ -57,7 +57,7 @@
     {/if}
   </a>
   <div class="name">
-    <strong> Melodle </strong>
+    <strong> Chordle </strong>
     <div class="difficulties">
       {#each difficulties as diff}
         <a
