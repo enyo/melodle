@@ -30,7 +30,7 @@ const _keys: { [key in Difficulty]: string } = {
   hard: 'board',
 }
 
-const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
+export const getStoredBoard = (difficulty: Difficulty): StoredBoard => {
   let melodies: number[][]
   switch (difficulty) {
     case 'easy':
@@ -91,7 +91,7 @@ const _getStoredBoard = (difficulty: Difficulty): StoredBoard => {
   }
   return storedBoard
 }
-const _board = writable<StoredBoard>(_getStoredBoard(get(difficulty)))
+const _board = writable<StoredBoard>(getStoredBoard(get(difficulty)))
 
 _board.subscribe((board) => {
   if (typeof localStorage !== 'undefined') {
@@ -100,7 +100,7 @@ _board.subscribe((board) => {
 })
 difficulty.subscribe((difficulty) => {
   if (difficulty !== get(_board).difficulty) {
-    _board.set(_getStoredBoard(difficulty))
+    _board.set(getStoredBoard(difficulty))
   }
 })
 
@@ -141,7 +141,7 @@ const updateBoardState = () => {
     stats.addNew(board)
   }
 }
-const _triggerUpdate = () => _board.set(get(_board))
+const _triggerUpdate = () => _board.update((board) => board)
 
 export const board = {
   subscribe: _board.subscribe,

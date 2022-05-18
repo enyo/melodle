@@ -1,17 +1,19 @@
 <script lang="ts">
   import ShareIcon from '~icons/ion/share-social'
   import { guess } from './core/melody'
-  import { board } from './stores/board'
+  import { board, getStoredBoard, type StoredBoard } from './stores/board'
   import startOfTomorrow from 'date-fns/startOfTomorrow/index.js'
   import formatDistanceToNow from 'date-fns/formatDistanceToNow/index.js'
   import { sendEvent } from './core/analytics'
+  import type { Difficulty } from './stores/difficulty'
 
   let copied = false
-  const share = () => {
-    let boxes = ''
-    $board.guesses.forEach((melodyGuess) => {
-      boxes += guess($board.melody, melodyGuess.melody, {
-        difficulty: $board.difficulty,
+
+  const getBoardShareText = (board: StoredBoard): string => {
+    let boxes = `#Melodle ${board.difficulty} ${board.index + 1} 🎶\n`
+    board.guesses.forEach((melodyGuess) => {
+      boxes += guess(board.melody, melodyGuess.melody, {
+        difficulty: board.difficulty,
         submitted: true,
       })
         .map((guess) => {
@@ -29,14 +31,44 @@
           }
         })
         .join('')
-      if ($board.guesses.length === 1) {
+      if (board.guesses.length === 1) {
         boxes += '🎉'
       }
       boxes += '\n'
     })
-    const shareText = `#Melodle ${$board.difficulty} ${
-      $board.index + 1
-    } 🎶\n${boxes}https://melodle.yesmeno.com`
+    return boxes
+  }
+
+  let otherBoard: StoredBoard
+
+  $: {
+    if (!otherBoard || otherBoard.difficulty === $board.difficulty) {
+      otherBoard = getStoredBoard(
+        $board.difficulty === 'easy' ? 'hard' : 'easy',
+      )
+    }
+  }
+
+  const share = () => {
+    const boards: { [key in Difficulty]: StoredBoard } = {
+      easy: getStoredBoard('easy'),
+      hard: getStoredBoard('hard'),
+    }
+    let shareText = ''
+
+    console.log(boards.easy.state, boards.hard.state)
+
+    if (boards.easy.state !== 'playing' && boards.hard.state !== 'playing') {
+      // We want to share both boards
+
+      shareText += getBoardShareText(boards.easy)
+      shareText += '\n'
+      shareText += getBoardShareText(boards.hard)
+    } else {
+      shareText += getBoardShareText($board)
+    }
+
+    shareText += 'https://melodle.yesmeno.com'
 
     sendEvent(`share-${$board.difficulty}`)
     if ($board.state !== 'playing') {
@@ -62,10 +94,15 @@
   <span>
     New melody in <strong>{nextChallenge}</strong>.
   </span>
-  {#if copied}
-    <span>Copied!</span>
-  {/if}
-  <button on:click={share}>Share <ShareIcon /></button>
+  <div class="button-container">
+    <button on:click={share}>
+      Share {#if otherBoard.state !== 'playing'}both{/if}
+      <ShareIcon />
+    </button>
+    {#if copied}
+      <small class="copied">Copied!</small>
+    {/if}
+  </div>
 </div>
 
 <style lang="postcss">
@@ -74,6 +111,7 @@
     --button-border: var(--color-success);
     --button-bg: var(--color-success);
     --button-bg-hover: var(--color-success-dark);
+    white-space: nowrap;
     & :global(svg) {
       margin-left: 0.4em;
       font-size: 1.2em;
@@ -82,10 +120,21 @@
   .share {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     & :global(svg) {
       max-width: none;
+    }
+  }
+  .button-container {
+    position: relative;
+
+    & .copied {
+      display: block;
+      text-align: center;
+      position: absolute;
+      inset: auto 0;
+      bottom: -1.75em;
     }
   }
 </style>
