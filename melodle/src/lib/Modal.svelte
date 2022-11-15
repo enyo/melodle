@@ -36,7 +36,7 @@
     all: unset;
     background: transparent;
     font-size: 2em;
-    cusor: pointer;
+    cursor: pointer;
   }
   .backdrop {
     position: absolute;
