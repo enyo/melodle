@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { theWindow } from 'tone/build/esm/core/context/AudioContext'
+  import { sendEvent } from './core/analytics'
   import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores/board'
   import { stats } from './stores/stats'
@@ -12,6 +14,8 @@
       }
     })
   }
+
+  let random = Math.floor(Math.random() * 2)
 </script>
 
 <div class="stats">
@@ -52,18 +56,29 @@
 {/if}
 
 <div class="did-you-know">
-  <strong>Did you know:</strong> you can add Melodle to your home screen on your
-  phone or tablet and it will behave like an app! How to:
-  <a
-    target="_blank"
-    href="https://www.howtogeek.com/667910/how-to-add-a-website-to-your-iphone-or-ipad-home-screen/"
-    >iOS</a
-  >,
-  <a
-    target="_blank"
-    href="https://www.howtogeek.com/667938/how-to-add-a-website-to-your-android-home-screen/"
-    >Android</a
-  >
+  {#if random === 0 && false}
+    <strong>Did you know:</strong> you can add Melodle to your home screen on
+    your phone or tablet and it will behave like an app! How to:
+    <a
+      target="_blank"
+      href="https://www.howtogeek.com/667910/how-to-add-a-website-to-your-iphone-or-ipad-home-screen/"
+      >iOS</a
+    >,
+    <a
+      target="_blank"
+      href="https://www.howtogeek.com/667938/how-to-add-a-website-to-your-android-home-screen/"
+      >Android</a
+    >
+  {:else}
+    <strong>You should take a short break!</strong> Try
+    <a
+      on:click={() => sendEvent(`pausly`)}
+      target="_blank"
+      href="https://www.pausly.app"><strong>Pausly</strong></a
+    >, another free service from the creator of Melodle! 💪 Short, guided, and
+    easy stretching sessions that you can do with your friends and colleagues.
+    ❤️
+  {/if}
 </div>
 
 <style lang="postcss">

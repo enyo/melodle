@@ -9,6 +9,7 @@ type Event =
   | 'share-hard'
   | 'share-success'
   | 'share-failed'
+  | 'pausly'
   | Notation
 
 export const sendEvent = (event: Event) => {
