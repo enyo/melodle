@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { theWindow } from 'tone/build/esm/core/context/AudioContext'
   import { sendEvent } from './core/analytics'
   import ShareSheet from './ShareSheet.svelte'
   import { board } from './stores/board'
