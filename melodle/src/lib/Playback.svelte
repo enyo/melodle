@@ -25,7 +25,7 @@
         'D#4': 'Ds4.mp3',
         'F#4': 'Fs4.mp3',
       },
-      baseUrl: 'https://tonejs.github.io/audio/salamander/',
+      baseUrl: '/audio/',
       onload: () => {
         console.log('Loaded samples')
         Tone.Transport.bpm.setValueAtTime(tempo, Tone.now())
