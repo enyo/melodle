@@ -50,6 +50,14 @@
       async
       src="//gc.zgo.at/count.js"
     ></script>
+
+    <style>
+      .pausly {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
   </head>
   <body>
     <div>%svelte.body%</div>
@@ -76,5 +84,9 @@
         // unmuteHandle = null
       }
     </script>
+
+    <a class="pausly-link" href="https://www.pausly.app"
+      >Take a break with Pausly.</a
+    >
   </body>
 </html>

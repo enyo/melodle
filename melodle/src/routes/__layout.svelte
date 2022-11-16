@@ -54,17 +54,10 @@
   <slot />
 </div>
 
-<a class="pausly" href="https://www.pausly.app">Take a break with Pausly.</a>
-
 <style lang="postcss">
   div {
     display: content;
     &.light {
     }
-  }
-  .pausly {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
   }
 </style>
