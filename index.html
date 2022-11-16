@@ -45,7 +45,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-security-policy" content="">
-	<link rel="modulepreload" href="/_app/start-81f07a84.js">
+	<link rel="modulepreload" href="/_app/start-298518eb.js">
 	<link rel="modulepreload" href="/_app/chunks/index-8b275e73.js">
 	<link rel="modulepreload" href="/_app/chunks/index-94cde96d.js">
     <script
@@ -53,11 +53,19 @@
       async
       src="//gc.zgo.at/count.js"
     ></script>
+
+    <style>
+      .pausly {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
   </head>
   <body>
     <div>
 		<script type="module" data-hydrate="45h">
-		import { start } from "/_app/start-81f07a84.js";
+		import { start } from "/_app/start-298518eb.js";
 		start({
 			target: document.querySelector('[data-hydrate="45h"]').parentNode,
 			paths: {"base":"","assets":""},
@@ -91,5 +99,9 @@
         // unmuteHandle = null
       }
     </script>
+
+    <a class="pausly-link" href="https://www.pausly.app"
+      >Take a break with Pausly.</a
+    >
   </body>
 </html>
